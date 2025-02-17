@@ -5,12 +5,8 @@ void dae::SceneManager::Update(float delta_time)
 {
 	for(auto& scene : m_scenes)
 	{
-		scene->Update();
+		scene->Update(delta_time);
 	}
-}
-
-void dae::SceneManager::Fixed_Update(float fixed_time_step)
-{
 }
 
 void dae::SceneManager::Render()
