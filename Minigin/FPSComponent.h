@@ -3,6 +3,7 @@
 #include <memory>
 #include <SDL_ttf.h>
 #include "Transform.h"
+#include "TextComponent.h"
 
 namespace dae
 {
@@ -15,7 +16,7 @@ namespace dae
         void Render() const override;
         void SetPosition(float x, float y);
 
-        FPSComponent(std::shared_ptr<Font> font);
+        FPSComponent(std::shared_ptr<Font> font, GameObject* pOwner);
         virtual ~FPSComponent() = default;
         FPSComponent(const FPSComponent& other) = delete;
         FPSComponent(FPSComponent&& other) = delete;
@@ -24,8 +25,7 @@ namespace dae
 
     private:
         Transform m_transform{};
-        std::shared_ptr<Font> m_font;
-        std::shared_ptr<Texture2D> m_textTexture;
         float m_FPS;
+        std::unique_ptr<TextComponent> m_textComponent;
     };
 }

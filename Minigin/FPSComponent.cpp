@@ -5,41 +5,33 @@
 #include "Font.h"
 #include "Texture2D.h"
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 namespace dae
 {
-    FPSComponent::FPSComponent(std::shared_ptr<Font> font)
-        : m_font(std::move(font)), m_textTexture(nullptr), m_FPS(0.f)
+	FPSComponent::FPSComponent(std::shared_ptr<Font> font, GameObject* pOwner) : 
+        BaseComponent(pOwner), 
+        m_FPS(0.f), 
+        m_textComponent(std::make_unique<TextComponent>("0 FPS", font, pOwner))
     {
     }
 
     void FPSComponent::Update(float deltaTime)
     {
-        m_FPS = ((int)((1.0f / deltaTime) * 100.f) / 100.f);
-        std::string fps = std::to_string(m_FPS) + " FPS";
+        m_FPS = (1.0f / deltaTime);
+        std::stringstream ss;
+        ss << std::fixed << std::setprecision(1) << m_FPS;
+        std::string fps = ss.str() + " FPS";
 
-        const SDL_Color color = { 255,255,255,255 }; // only white text is supported now
-        const auto surf = TTF_RenderText_Blended(m_font->GetFont(), fps.c_str(), color);
-        if (surf == nullptr)
-        {
-            throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
-        }
-        auto texture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSDLRenderer(), surf);
-        if (texture == nullptr)
-        {
-            throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
-        }
-        SDL_FreeSurface(surf);
-        m_textTexture = std::make_shared<Texture2D>(texture);
+		m_textComponent->SetText(fps);
+
+		m_textComponent->Update(deltaTime);
     }
 
     void FPSComponent::Render() const
     {
-        if (m_textTexture != nullptr)
-        {
-            const auto& pos = m_transform.GetPosition();
-            Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x, pos.y);
-        }
+        m_textComponent->Render();
     }
 
     void FPSComponent::SetPosition(const float x, const float y)

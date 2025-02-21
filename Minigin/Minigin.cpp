@@ -88,17 +88,25 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 
-	const int ms_per_frame = 16;
+	float fixed_time_step = 1000.f / 60.f;
+	const int ms_per_frame = int(fixed_time_step);
 	bool doContinue = true;
 	auto last_time = high_resolution_clock::now();
+	float lag = 0.0f;
 
 	while (doContinue)
 	{
 		const auto current_time = high_resolution_clock::now();
 		const float delta_time = duration<float>(current_time - last_time).count();
 		last_time = current_time;
+		lag += delta_time;
 
 		doContinue = input.ProcessInput();
+		while (lag >= fixed_time_step)
+		{
+			sceneManager.Update(fixed_time_step);
+			lag -= fixed_time_step;
+		}
 		sceneManager.Update(delta_time);
 		renderer.Render();
 
