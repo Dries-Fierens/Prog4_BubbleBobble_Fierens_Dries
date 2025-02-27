@@ -13,12 +13,18 @@ namespace dae
 	FPSComponent::FPSComponent(std::shared_ptr<Font> font, GameObject* pOwner) : 
         BaseComponent(pOwner), 
         m_FPS(0.f), 
+        m_Timer{},
         m_textComponent(std::make_unique<TextComponent>("0 FPS", font, pOwner))
     {
     }
 
     void FPSComponent::Update(float deltaTime)
     {
+        const float TIME_BETWEEN{ 0.20f };
+        m_Timer += deltaTime;
+        if (m_Timer < TIME_BETWEEN) return;
+        m_Timer -= TIME_BETWEEN;
+
         m_FPS = (1.0f / deltaTime);
         std::stringstream ss;
         ss << std::fixed << std::setprecision(1) << m_FPS;

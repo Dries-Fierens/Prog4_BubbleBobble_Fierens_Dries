@@ -26,6 +26,7 @@ namespace dae
     private:
         Transform m_position{};
         float m_FPS;
+        float m_Timer;
         std::unique_ptr<TextComponent> m_textComponent;
     };
 }

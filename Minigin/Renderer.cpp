@@ -2,6 +2,33 @@
 #include "Renderer.h"
 #include "SceneManager.h"
 #include "Texture2D.h"
+#include <imgui.h>
+#include <backends/imgui_impl_sdl2.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <chrono>
+
+using namespace std::chrono;
+
+struct transform {
+	float matrix[16] = {
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	};
+};
+
+class GameObject3D {
+public:
+	transform local;
+	int id;
+};
+
+class GameObject3DAlt {
+public:
+	transform* local;
+	int id;
+};
 
 int GetOpenGLDriverIndex()
 {
@@ -25,6 +52,11 @@ void dae::Renderer::Init(SDL_Window* window)
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
+
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
+	ImGui_ImplOpenGL3_Init();
 }
 
 void dae::Renderer::Render() const
@@ -35,11 +67,76 @@ void dae::Renderer::Render() const
 
 	SceneManager::GetInstance().Render();
 	
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame();
+	ImGui::NewFrame();
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 	SDL_RenderPresent(m_renderer);
 }
 
+//void dae::Renderer::RenderPlotInteger()
+//{
+//	const int SIZE{ 10000000 };
+//	int* arr = new int[SIZE] {};
+//
+//	for (int stepsize = 1; stepsize <= 1024; stepsize *= 2) {
+//		auto start = high_resolution_clock::now();
+//
+//		for (int i = 0; i < SIZE; i += stepsize)
+//		{
+//			arr[i] *= 2;
+//		}
+//
+//		auto end = high_resolution_clock::now();
+//		auto elapsedTime = duration_cast<microseconds>(end - start).count();
+//	}
+//}
+
+//void dae::Renderer::RenderPlotGameObject3D()
+//{
+//	const int SIZE{ 10000000 };
+//	GameObject3D* arrGameObject = new GameObject3D[SIZE]{};
+//
+//	for (int stepsize = 1; stepsize <= 1024; stepsize *= 2) {
+//		auto start = high_resolution_clock::now();
+//
+//		for (int i = 0; i < SIZE; i += stepsize)
+//		{
+//			arrGameObject[i].id *= 2;
+//		}
+//
+//		auto end = high_resolution_clock::now();
+//		auto elapsedTime = duration_cast<microseconds>(end - start).count();
+//	}
+//}
+//
+//void dae::Renderer::RenderPlotGameObject3DAlt()
+//{
+//	const int SIZE{ 10000000 };
+//	GameObject3DAlt* arrGameObjectAlt = new GameObject3DAlt[SIZE]{};
+//
+//	for (int stepsize = 1; stepsize <= 1024; stepsize *= 2) {
+//		auto start = high_resolution_clock::now();
+//
+//		for (int i = 0; i < SIZE; i += stepsize)
+//		{
+//			arrGameObjectAlt[i].id *= 2;
+//		}
+//
+//		auto end = high_resolution_clock::now();
+//		auto elapsedTime = duration_cast<microseconds>(end - start).count();
+//	}
+//}
+
 void dae::Renderer::Destroy()
 {
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
+
 	if (m_renderer != nullptr)
 	{
 		SDL_DestroyRenderer(m_renderer);

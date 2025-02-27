@@ -25,6 +25,11 @@ namespace dae
 
 		const SDL_Color& GetBackgroundColor() const { return m_clearColor; }
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }
+
+	private:
+		void RenderPlotInteger();
+		void RenderPlotGameObject3D();
+		void RenderPlotGameObject3DAlt();
 	};
 }
 
