@@ -24,7 +24,7 @@ namespace dae
         FPSComponent& operator=(FPSComponent&& other) = delete;
 
     private:
-        Transform m_transform{};
+        Transform m_position{};
         float m_FPS;
         std::unique_ptr<TextComponent> m_textComponent;
     };

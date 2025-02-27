@@ -33,9 +33,8 @@ namespace dae
     {
         m_textComponent->Render();
     }
-
-    void FPSComponent::SetPosition(const float x, const float y)
+    void FPSComponent::SetPosition(float x, float y)
     {
-        m_transform.SetPosition(x, y, 0.0f);
+        m_position.SetPosition(x, y, 0.0f);
     }
 }

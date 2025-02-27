@@ -11,30 +11,33 @@ void dae::GameObject::Update(float delta_time)
 	{
 		component->Update(delta_time);
 	}
+
+	UpdateWorldPosition();
 }
 
 void dae::GameObject::Render() const
 {
-	if (m_components.empty())
+	for (const auto& component : m_components)
 	{
-		const auto& pos = m_transform.GetPosition();
-		Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
-	}
-	else 
-	{
-		for (const auto& component : m_components)
-		{
-			component->Render();
-		}
+		component->Render();
 	}
 }
 
-void dae::GameObject::SetTexture(const std::string& filename)
+glm::vec3 dae::GameObject::GetPosition() const
 {
-	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
+	return m_worldPosition;
 }
 
-void dae::GameObject::SetPosition(float x, float y)
+void dae::GameObject::SetLocalPosition(float x, float y)
 {
-	m_transform.SetPosition(x, y, 0.0f);
+	m_positionIsDirty = true;
+	m_transform.SetPosition({x, y, 0.f});
 }
+
+void dae::GameObject::SetLocalPosition(glm::vec3 position)
+{
+	m_positionIsDirty = true;
+	m_transform.SetPosition(position);
+}
+
+

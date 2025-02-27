@@ -1,8 +1,9 @@
 #pragma once
+#include "BaseComponent.h"
 #include <string>
 #include <memory>
 #include "Transform.h"
-#include "BaseComponent.h"
+#include "RenderComponent.h"
 
 namespace dae
 {
@@ -28,6 +29,7 @@ namespace dae
 		std::string m_text;
 		Transform m_transform{};
 		std::shared_ptr<Font> m_font;
-		std::shared_ptr<Texture2D> m_textTexture;
+		//std::shared_ptr<Texture2D> m_texture;
+		std::unique_ptr<RenderComponent> m_renderComponent;
 	};
 }

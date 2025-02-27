@@ -8,21 +8,23 @@
 #include "Transform.h"
 #include "BaseComponent.h"
 #include "TextComponent.h"
+#include <glm.hpp>
 
 namespace dae
 {
     class Texture2D;
-
     class GameObject final
     {
     public:
         virtual void Update(float delta_time);
         virtual void Render() const;
 
-        void SetTexture(const std::string& filename);
-        void SetPosition(float x, float y);
+        glm::vec3 GetPosition() const;
+        void SetLocalPosition(float x, float y);
+        void SetLocalPosition(glm::vec3 position);
 
         GameObject() = default;
+        GameObject(GameObject* parent) { SetParent(parent); };
         virtual ~GameObject();
         GameObject(const GameObject& other) = delete;
         GameObject(GameObject&& other) = delete;
@@ -81,140 +83,125 @@ namespace dae
                 });
         }
 
+		GameObject* GetParent() const
+		{
+			return m_parent;
+		}
 
-        //void SetParent(GameObject* parent)
-        //{
-        //    if (parent == this || IsChild(parent))
-        //    {
-        //        return;
-        //    }
+        void SetParent(GameObject* parent)
+        {
+            if (parent == this || IsChild(parent)) return;
 
-        //    //if (parent == nullptr)
-        //    //    SetLocalPosition(GetWorldPosition());
-        //    //else
-        //    //{
-        //    //    if (keepWorldPosition)
-        //    //        SetLocalPosition(GetWorldPosition() - parent->GetWorldPosition());
-        //    //    SetPositionDirty()
-        //    //}
+            if (parent == nullptr)
+                SetLocalPosition(GetWorldPosition());
+            else
+                m_positionIsDirty = true;
 
-        //    if (m_parent)
-        //    {
-        //        m_parent->RemoveChild(this);
-        //    }
+            if (m_parent) m_parent->RemoveChild(this);
 
-        //    m_parent = parent;
+            m_parent = parent;
 
-        //    if (m_parent)
-        //    {
-        //        m_parent->AddChild(this);
-        //    }
+            if (m_parent) m_parent->AddChild(this);
+        }
 
-        //    // Update position, rotation, and scale
-        //    // Use dirty flag pattern if necessary
-        //}
+        size_t GetChildCount() const
+		{
+			return m_children.size();
+		}
 
-        //void SetLocalPosition(const glm::vec3& pos)
-        //{
-        //    m_localPosition = pos;
-        //    SetPositionDirty();
-        //}
-
+		GameObject* GetChildAt(unsigned int index) const
+		{
+			if (index < 0 || index >= m_children.size())
+			{
+				return nullptr;
+			}
+			return m_children[index];
+		}
 
     private:
-        //void AddChild(GameObject* child)
-        //{
-        //    if (child == nullptr || IsParent(child))
-        //    {
-        //        return;
-        //    }
+        void AddChild(GameObject* child)
+        {
+            if (child == nullptr || IsParent(child))
+            {
+                return;
+            }
 
-        //    if (child->m_parent)
-        //    {
-        //        child->m_parent->RemoveChild(child);
-        //    }
+            if (child->m_parent)
+            {
+                child->m_parent->RemoveChild(child);
+            }
 
-        //    child->m_parent = this;
-        //    m_children.push_back(child);
+            child->m_parent = this;
+            m_children.emplace_back(child);
 
-        //    // Update position, rotation, and scale
-        //}
+            UpdateWorldPosition();
+        }
 
-        ////    Can SetParent use AddChild to do its job ?
-        ////    Can AddChild use SetParent to do its job ?
-        ////    No – stack overflow would happen
-        ////    Do we really need AddChild / RemoveChild ?
-        ////    No, being able to set the parent on a GameObject is enough.
-        ////    Set the parent to nullptr to remove the child from its parent.
+        void RemoveChild(GameObject* child)
+        {
+            if (child == nullptr || !IsChild(child))
+            {
+                return;
+            }
 
-        //void RemoveChild(GameObject* child)
-        //{
-        //    if (child == nullptr || !IsChild(child))
-        //    {
-        //        return;
-        //    }
+            m_children.erase(std::remove(m_children.begin(), m_children.end(), child), m_children.end());
 
-        //    auto it = std::remove(m_children.begin(), m_children.end(), child);
-        //    if (it != m_children.end())
-        //    {
-        //        m_children.erase(it);
-        //    }
+            child->m_parent = nullptr;
 
-        //    child->m_parent = nullptr;
+            UpdateWorldPosition();
+        }
 
-        //    // Update position, rotation, and scale
-        //}
+        bool IsChild(GameObject* otherChild) const
+        {
+            for (const auto& child : m_children)
+            {
+                if (child == otherChild || child->IsChild(otherChild))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-        //bool IsChild(GameObject* potentialChild) const
-        //{
-        //    for (const auto& child : m_children)
-        //    {
-        //        if (child == potentialChild || child->IsChild(potentialChild))
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
+        bool IsParent(GameObject* otherParent) const
+        {
+            if (m_parent == nullptr)
+            {
+                return false;
+            }
 
-        //bool IsParent(GameObject* potentialParent) const
-        //{
-        //    if (m_parent == nullptr)
-        //    {
-        //        return false;
-        //    }
+            if (m_parent == otherParent)
+            {
+                return true;
+            }
 
-        //    if (m_parent == potentialParent)
-        //    {
-        //        return true;
-        //    }
+            return m_parent->IsParent(otherParent);
+        }
 
-        //    return m_parent->IsParent(potentialParent);
-        //}
+		const glm::vec3& GetWorldPosition()
+        {
+            if (m_positionIsDirty)
+                UpdateWorldPosition();
+            return m_worldPosition;
+        }
 
-        //const glm::vec3& GetWorldPosition()
-        //{
-        //    if (m_positionIsDirty)
-        //        UpdateWorldPosition();
-        //    return m_worldPosition;
-        //}
-        //void UpdateWorldPosition()
-        //{
-        //    if (m_positionIsDirty)
-        //    {
-        //        if (m_parent == nullptr)
-        //            m_worldPosition = m_localPosition;
-        //        else
-        //            m_worldPosition = m_parent->GetWorldPosition() + m_localPosition;
-        //    }
-        //    m_positionIsDirty = false;
-        //}
+        void UpdateWorldPosition()
+        {
+            if (m_positionIsDirty)
+            {
+                if (m_parent == nullptr)
+                    m_worldPosition = m_transform.GetPosition();
+                else
+                    m_worldPosition = m_parent->GetWorldPosition() + m_transform.GetPosition();
+            }
+            m_positionIsDirty = false;
+        }
 
         std::vector<std::shared_ptr<BaseComponent>> m_components;
-        std::shared_ptr<Texture2D> m_texture{};
-        //GameObject* m_parent{ nullptr };
-        //std::vector<GameObject*> m_children;
-        //bool m_positionIsDirty{ true };
+        GameObject* m_parent{ nullptr };
+        std::vector<GameObject*> m_children;
+        glm::vec3 m_worldPosition{};
+        bool m_positionIsDirty{ true };
         Transform m_transform{};
     };
 }
