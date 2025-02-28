@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL.h>
 #include "Singleton.h"
+#include "GraphPlot.h"
+#include <memory>
 
 namespace dae
 {
@@ -27,9 +29,7 @@ namespace dae
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }
 
 	private:
-		void RenderPlotInteger();
-		void RenderPlotGameObject3D();
-		void RenderPlotGameObject3DAlt();
+		std::unique_ptr<GraphPlot> graphPlot;
 	};
 }
 
