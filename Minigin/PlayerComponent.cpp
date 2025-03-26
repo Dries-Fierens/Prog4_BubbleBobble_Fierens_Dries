@@ -1,6 +1,6 @@
 #include "PlayerComponent.h"
 
-dae::PlayerComponent::PlayerComponent(float speed, GameObject* pOwner) : BaseComponent(pOwner), m_speed(speed), m_inputManager(dae::InputManager::GetInstance())
+dae::PlayerComponent::PlayerComponent(int health, float speed, GameObject* pOwner) : BaseComponent(pOwner), m_health(health), m_speed(speed), m_inputManager(dae::InputManager::GetInstance())
 {
 }
 

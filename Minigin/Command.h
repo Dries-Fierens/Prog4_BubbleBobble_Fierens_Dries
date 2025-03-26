@@ -5,38 +5,34 @@ namespace dae
 	class Command
 	{
 	public:
-		virtual ~Command() {}
-		virtual void Execute(GameActor& actor) = 0;
+		virtual ~Command() = default;
+		virtual void Execute() = 0;
 	};
 
-	class FireCommand : public Command
-	{
+	class GameActorCommand : public Command {
+		GameActor* m_actor;
+	protected:
+		GameActor* GetGameActor() const { return m_actor; }
 	public:
-		virtual void Execute(GameActor& actor) { actor.Fire(); }
+		GameActorCommand(GameActor* actor) { m_actor = actor; };
+		virtual ~GameActorCommand() { delete m_actor; };
 	};
 
-	class LeftCommand : public Command
+	class Move : public GameActorCommand
 	{
 	public:
-		virtual void Execute(GameActor& actor) { actor.MoveLeft(); }
+		void Execute() override 
+		{
+			GetGameActor()->Move();
+		};
 	};
 
-	class RightCommand : public Command
-	{
+	class Fire : public GameActorCommand {
 	public:
-		virtual void Execute(GameActor& actor) { actor.MoveRight(); }
-	};
-
-	class UpCommand : public Command
-	{
-	public:
-		virtual void Execute(GameActor& actor) { actor.MoveUp(); }
-	};
-
-	class DownCommand : public Command
-	{
-	public:
-		virtual void Execute(GameActor& actor) { actor.MoveDown(); }
+		void Execute() override
+		{
+			GetGameActor()->Fire();
+		}
 	};
 }
 
