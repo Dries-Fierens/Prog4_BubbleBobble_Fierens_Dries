@@ -102,12 +102,6 @@
     <ClInclude Include="Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -138,9 +132,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Minigin.cpp">
@@ -186,12 +177,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

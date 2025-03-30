@@ -1,5 +1,5 @@
 #pragma once
-#include "GameActor.h"
+//#include "GameActor.h"
 namespace dae
 {
 	class Command
@@ -10,12 +10,12 @@ namespace dae
 	};
 
 	class GameActorCommand : public Command {
-		GameActor* m_actor;
+		//GameActor* m_actor;
 	protected:
-		GameActor* GetGameActor() const { return m_actor; }
+		//GameActor* GetGameActor() const { return m_actor; }
 	public:
-		GameActorCommand(GameActor* actor) { m_actor = actor; };
-		virtual ~GameActorCommand() { delete m_actor; };
+		//GameActorCommand(GameActor* actor) { m_actor = actor; };
+		//virtual ~GameActorCommand() { delete m_actor; };
 	};
 
 	class Move : public GameActorCommand
@@ -23,7 +23,7 @@ namespace dae
 	public:
 		void Execute() override 
 		{
-			GetGameActor()->Move();
+			//GetGameActor()->Move();
 		};
 	};
 
@@ -31,7 +31,7 @@ namespace dae
 	public:
 		void Execute() override
 		{
-			GetGameActor()->Fire();
+			//GetGameActor()->Fire();
 		}
 	};
 }
