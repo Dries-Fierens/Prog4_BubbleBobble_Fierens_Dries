@@ -20,6 +20,7 @@
 #include "RotatorComponent.h"
 #include "InputManager.h"
 #include "PlayerComponent.h"
+#include "AudioComponent.h"
 
 void load()
 {
@@ -27,6 +28,8 @@ void load()
 
     auto go = std::make_shared<dae::GameObject>();
     auto backgroundRender = std::make_shared<dae::RenderComponent>("background.tga", go.get());
+    auto audio = std::make_shared<dae::AudioComponent>(go.get());
+    go->AddComponent(audio);
     go->AddComponent(backgroundRender);
     scene.Add(go);
 
