@@ -1,4 +1,5 @@
 #include "AudioComponent.h"
+#include "BaseComponent.h"
 
 dae::AudioComponent::AudioComponent(GameObject* pOwner) : BaseComponent(pOwner)
 {
