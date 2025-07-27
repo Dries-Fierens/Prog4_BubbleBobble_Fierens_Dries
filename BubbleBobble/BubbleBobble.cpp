@@ -21,6 +21,7 @@
 #include "InputManager.h"
 #include "PlayerComponent.h"
 #include "AudioComponent.h"
+#include "Player.h"
 
 void load()
 {
@@ -52,24 +53,32 @@ void load()
     fpsTextObject->AddComponent(fpsComponent);
     scene.Add(fpsTextObject);
 
-    auto baseObject = std::make_shared<dae::GameObject>();
-    baseObject->SetLocalPosition(256, 280);
-    scene.Add(baseObject);
+    //auto baseObject = std::make_shared<dae::GameObject>();
+    //baseObject->SetLocalPosition(256, 280);
+    //scene.Add(baseObject);
 
-    auto shipObject1 = std::make_shared<dae::GameObject>(baseObject.get());
-    auto shipRender1 = std::make_shared<dae::RenderComponent>("ship.png", shipObject1.get());
-    auto player1 = std::make_shared<dae::PlayerComponent>(3, 100.f, shipObject1.get());
-    auto rotator1 = std::make_shared<dae::RotatorComponent>(800.f, 90.f, 10.f, shipObject1.get());
-    shipObject1->AddComponent(shipRender1);
-    shipObject1->AddComponent(rotator1);
-    scene.Add(shipObject1);
+    //auto bubbyObject = std::make_shared<dae::GameObject>(baseObject.get());
+    //auto bubbyRender = std::make_shared<dae::RenderComponent>("Player/Bubby/Idle_Anim.png", bubbyObject.get());
+    //auto rotator1 = std::make_shared<dae::RotatorComponent>(800.f, 90.f, 10.f, bubbyObject.get());
+    //bubbyObject->AddComponent(bubbyRender);
+    //bubbyObject->AddComponent(rotator1);
+    //scene.Add(bubbyObject);
 
-    auto shipObject2 = std::make_shared<dae::GameObject>(shipObject1.get());
-    auto shipRender2 = std::make_shared<dae::RenderComponent>("ship.png", shipObject2.get());
-    auto rotator2 = std::make_shared<dae::RotatorComponent>(300.f, 90.f, 50.f, shipObject2.get());
-    shipObject2->AddComponent(shipRender2);
-    shipObject2->AddComponent(rotator2);
-    scene.Add(shipObject2);
+    //auto baseObject2 = std::make_shared<dae::GameObject>();
+    //baseObject2->SetLocalPosition(356, 280);
+    //scene.Add(baseObject2);
+
+    //auto bobbyObject = std::make_shared<dae::GameObject>(baseObject2.get());
+    //auto bobbyRender = std::make_shared<dae::RenderComponent>("Player/Bobby/Idle_Anim.png", bobbyObject.get());
+    //auto rotator2 = std::make_shared<dae::RotatorComponent>(300.f, 90.f, 50.f, bobbyObject.get());
+    //bobbyObject->AddComponent(bobbyRender);
+    //bobbyObject->AddComponent(rotator2);
+    //scene.Add(bobbyObject);
+
+	auto player1 = Player::CreatePlayer(100.f, 300.f, true, true);
+    scene.Add(player1);
+    auto player2 = Player::CreatePlayer(200.f, 300.f, false, true);
+    scene.Add(player2);
 }
 
 int main(int, char* []) {

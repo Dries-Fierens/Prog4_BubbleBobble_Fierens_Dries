@@ -2,32 +2,68 @@
 #include "Singleton.h"
 #include "Command.h"
 #include <SDL.h>
+#include "Controller.h"
+#include <map>
+#include <memory>
+#include <string>
+#include <vector>
 
 namespace dae
 {
-	enum class Direction
-	{
-		Up,
-		Down,
-		Left,
-		Right
-	};
-
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		bool ProcessInput();
 
-		void SetDirection(Direction direction) { m_direction = direction; };
+		enum class InputType
+		{
+			OnDown,
+			OnPressed,
+			OnRelease
+		};
 
-		bool ProcessInput(float delta_time);
-		Command* handleKeyBoardInput(SDL_Event e);
+		void AddControllerCommand(std::unique_ptr<Command> pCommand, Controller::ButtonState button, unsigned int controllerId, InputType type);
+		void AddKeyboardCommand(std::unique_ptr<Command> pCommand, unsigned int keyboardKey, InputType type);
 
 	private:
-		Direction m_direction;
-		Move* buttonMove_;
-		//FireCommand* buttonX_;
-		//Command* buttonY_;
-		//Command* buttonA_;
-		//Command* buttonB_;
+		struct ControllerInput
+		{
+			unsigned int controllerID{};
+			Controller::ButtonState button{};
+			InputType type{};
+
+			// Comparison operator for sorting in maps
+			bool operator<(const ControllerInput& other) const
+			{
+				if (controllerID < other.controllerID) return true;
+				if (controllerID > other.controllerID) return false;
+
+				if (button < other.button) return true;
+				if (button > other.button) return false;
+
+				return type < other.type;
+			}
+		};
+
+		struct KeyboardInput
+		{
+			unsigned int key{};
+			InputType type{};
+
+			// Comparison operator for sorting in maps
+			bool operator<(const KeyboardInput& other) const
+			{
+				if (key < other.key) return true;
+				if (key > other.key) return false;
+
+				return type < other.type;
+			}
+		};
+
+		std::map<ControllerInput, std::unique_ptr<Command>> m_pControllerMap{};
+		std::vector<std::unique_ptr<Controller>> m_pControllers{};
+		std::map<KeyboardInput, std::unique_ptr<Command>> m_pKeyboardMap{};
+		std::vector<unsigned int> m_PressedKeys{};
+
 	};
 }

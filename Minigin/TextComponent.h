@@ -12,18 +12,18 @@ namespace dae
 	class TextComponent final : public BaseComponent
 	{
 	public:
-		void Update(float delta_time) override;
-		void Render() const override;
-
-		void SetText(const std::string& text);
-		void SetPosition(float x, float y);
-
 		TextComponent(const std::string& text, std::shared_ptr<Font> font, GameObject* pOwner);
 		virtual ~TextComponent() = default;
 		TextComponent(const TextComponent& other) = delete;
 		TextComponent(TextComponent&& other) = delete;
 		TextComponent& operator=(const TextComponent& other) = delete;
 		TextComponent& operator=(TextComponent&& other) = delete;
+
+		void Update() override;
+		void Render() const override;
+		void SetText(const std::string& text);
+		void SetPosition(float x, float y);
+
 	private:
 		bool m_needsUpdate;
 		std::string m_text;

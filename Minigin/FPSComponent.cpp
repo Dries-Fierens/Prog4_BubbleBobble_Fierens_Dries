@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include "Timer.h"
 
 namespace dae
 {
@@ -18,8 +19,9 @@ namespace dae
     {
     }
 
-    void FPSComponent::Update(float deltaTime)
+    void FPSComponent::Update()
     {
+        float deltaTime = dae::Timer::GetInstance().GetDeltaTime();
         const float TIME_BETWEEN{ 0.20f };
         m_Timer += deltaTime;
         if (m_Timer < TIME_BETWEEN) return;
@@ -32,7 +34,7 @@ namespace dae
 
 		m_textComponent->SetText(fps);
 
-		m_textComponent->Update(deltaTime);
+		m_textComponent->Update();
     }
 
     void FPSComponent::Render() const

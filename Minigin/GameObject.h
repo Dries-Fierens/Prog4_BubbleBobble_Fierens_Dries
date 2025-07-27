@@ -16,7 +16,7 @@ namespace dae
     class GameObject final
     {
     public:
-        virtual void Update(float delta_time);
+        virtual void Update();
         virtual void Render() const;
 
         glm::vec3 GetPosition() const;

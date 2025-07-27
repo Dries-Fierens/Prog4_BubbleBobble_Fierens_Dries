@@ -5,11 +5,11 @@
 
 dae::GameObject::~GameObject() = default;
 
-void dae::GameObject::Update(float delta_time)
+void dae::GameObject::Update()
 {
 	for (const auto& component : m_components)
 	{
-		component->Update(delta_time);
+		component->Update();
 	}
 
 	UpdateWorldPosition();

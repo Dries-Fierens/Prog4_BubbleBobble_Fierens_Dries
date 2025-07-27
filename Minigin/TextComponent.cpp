@@ -12,7 +12,7 @@ m_font(std::move(font)),
 m_renderComponent(std::make_unique<RenderComponent>(static_cast<std::shared_ptr<Texture2D>>(nullptr), pOwner))
 { }
 
-void dae::TextComponent::Update(float /*delta_time*/) // indicate that delta_time is not used
+void dae::TextComponent::Update()
 {
 	if (m_needsUpdate)
 	{

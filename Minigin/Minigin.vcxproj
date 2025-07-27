@@ -110,7 +110,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;xinput.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -132,7 +132,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;xinput.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -218,6 +218,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +248,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

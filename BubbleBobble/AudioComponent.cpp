@@ -11,7 +11,7 @@ dae::AudioComponent::AudioComponent(GameObject* pOwner) : BaseComponent(pOwner)
 	m_pAudioService->PlaySound(m_shootSoundId);
 }
 
-void dae::AudioComponent::Update(float)
+void dae::AudioComponent::Update()
 {
 	if (m_pAudioService == nullptr) {
 		m_pAudioService = Locator::GetAudio();

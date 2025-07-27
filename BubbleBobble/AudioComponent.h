@@ -16,7 +16,7 @@ namespace dae {
 		AudioComponent& operator=(const AudioComponent&) = delete;
 		AudioComponent& operator=(AudioComponent&&) noexcept = delete;
 
-		virtual void Update(float /*delta_time*/) override;
+		virtual void Update() override;
 		void Render() const override {};
 
 	private:

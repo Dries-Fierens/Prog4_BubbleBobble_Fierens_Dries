@@ -1,51 +1,106 @@
 #include "InputManager.h"
-#include <backends/imgui_impl_sdl2.h>
+#include <iostream>
+#include <sstream>
+#include <SDL.h>
+#include "Minigin.h"
 
-bool dae::InputManager::ProcessInput(float /*delta_time*/)
+bool dae::InputManager::ProcessInput()
 {
 	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
+	while (SDL_PollEvent(&e))
+	{
+		if (e.type == SDL_QUIT)
+		{
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN) {
-			dae::Command* command = handleKeyBoardInput(e);
-			if(command) command->Execute();
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			// Handle mouse button down events
-		}
 
-		ImGui_ImplSDL2_ProcessEvent(&e);
+		// Handle window events
+		size_t prevSize = dae::InputManager::m_pKeyboardMap.size();
+		for (auto& map : m_pKeyboardMap)
+		{
+			if (static_cast<unsigned int>(e.key.keysym.sym) == map.first.key)
+			{
+				if (map.first.type == InputType::OnDown && e.type == SDL_KEYDOWN)
+				{
+					if (std::ranges::find(m_PressedKeys, map.first.key) != m_PressedKeys.end())
+						continue;
+
+					map.second->Execute();
+				}
+				else if (map.first.type == InputType::OnRelease && e.type == SDL_KEYUP)
+				{
+					map.second->Execute();
+				}
+
+				if (m_pKeyboardMap.size() != prevSize)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+	// Process keyboard inputs
+	const Uint8* state = SDL_GetKeyboardState(nullptr);
+	for (auto& map : m_pKeyboardMap)
+	{
+		if (state[SDL_GetScancodeFromKey(static_cast<int>(map.first.key))])
+		{
+			m_PressedKeys.push_back(map.first.key);
+
+			if (map.first.type == InputType::OnPressed)
+			{
+				map.second->Execute();
+			}
+		}
+	}
+
+
+	// Process controller inputs
+	for (auto& controller : m_pControllers)
+	{
+		controller->Update();
+
+		for (auto& map : m_pControllerMap)
+		{
+			if (map.first.controllerID == controller->GetIndex())
+			{
+				if ((map.first.type == InputType::OnDown && controller->IsDown(map.first.button)) ||
+					(map.first.type == InputType::OnPressed && controller->IsPressed(map.first.button)) ||
+					(map.first.type == InputType::OnRelease && controller->IsUp(map.first.button)))
+				{
+					map.second->Execute();
+				}
+			}
+		}
 	}
 
 	return true;
 }
 
-dae::Command* dae::InputManager::handleKeyBoardInput(SDL_Event e)
+void dae::InputManager::AddControllerCommand(std::unique_ptr<Command> pCommand, Controller::ButtonState button, unsigned int controllerId, InputType type)
 {
-	if (e.key.keysym.sym == SDLK_w) 
-	{ 
-		SetDirection(Direction::Up);
-		return buttonMove_;
-	}
-	if (e.key.keysym.sym == SDLK_a) 
-	{ 
-		SetDirection(Direction::Left);
-		return buttonMove_;
-	}
-	if (e.key.keysym.sym == SDLK_s) 
-	{ 
-		SetDirection(Direction::Down);
-		return buttonMove_; 
-	}
-	if (e.key.keysym.sym == SDLK_d)
+	bool doesControllerExist = false;
+	for (const auto& controller : m_pControllers)
 	{
-		SetDirection(Direction::Right);
-		return buttonMove_;
+		if (controller->GetIndex() == controllerId)
+		{
+			doesControllerExist = true;
+			break;
+		}
 	}
-	//if(e.key.keysym.sym == SDLK_c) return buttonRight_;
-	//if(e.key.keysym.sym == SDLK_z && e.key.keysym.sym == SDLK_x) return buttonRight_;
 
-	return nullptr;
+	if (doesControllerExist == false)
+	{
+		m_pControllers.push_back(std::make_unique<Controller>(controllerId));
+	}
+
+	ControllerInput input{ controllerId, button, type };
+	m_pControllerMap.insert(std::pair(input, std::move(pCommand)));
+}
+
+void dae::InputManager::AddKeyboardCommand(std::unique_ptr<Command> pCommand, unsigned int keyboardKey, InputType type)
+{
+	KeyboardInput input{ keyboardKey, type };
+	m_pKeyboardMap.insert(std::pair(input, std::move(pCommand)));
 }

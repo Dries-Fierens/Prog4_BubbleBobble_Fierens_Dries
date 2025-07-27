@@ -13,9 +13,8 @@ dae::RenderComponent::RenderComponent(std::shared_ptr<Texture2D> texture, GameOb
 	SetTexture(texture);
 }
 
-void dae::RenderComponent::Update(float /*delta_time*/)
+void dae::RenderComponent::Update()
 {
-	// use child and parent relationship to update position, rotation, and scale
 }
 
 void dae::RenderComponent::Render() const

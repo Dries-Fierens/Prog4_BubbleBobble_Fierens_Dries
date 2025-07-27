@@ -1,4 +1,4 @@
 #include "Locator.h"
 
-Audio* Locator::service_{ nullptr };
 NullAudio Locator::nullService_{};
+Audio* Locator::service_{ &Locator::nullService_ };

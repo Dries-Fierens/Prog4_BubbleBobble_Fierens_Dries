@@ -11,6 +11,8 @@
 #include "ResourceManager.h"
 #include <chrono>
 #include <thread>
+#include "EventQueue.h"
+#include "Timer.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -70,6 +72,8 @@ dae::Minigin::Minigin(const std::string &dataPath)
 	Renderer::GetInstance().Init(g_window);
 
 	ResourceManager::GetInstance().Init(dataPath);
+
+	Timer::GetInstance().Initialize();
 }
 
 dae::Minigin::~Minigin()
@@ -87,27 +91,30 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
+	auto& events = EventQueue::GetInstance();
+	auto& timer = Timer::GetInstance();
 
 	float fixed_time_step = 1000.f / 60.f;
 	const int ms_per_frame = int(fixed_time_step);
 	bool doContinue = true;
-	auto last_time = high_resolution_clock::now();
 	float lag = 0.f;
+	timer.SetFixedTimeStep(fixed_time_step);
 
 	while (doContinue)
 	{
 		const auto current_time = high_resolution_clock::now();
-		const float delta_time = duration<float>(current_time - last_time).count();
-		last_time = current_time;
-		lag += delta_time;
 
-		doContinue = input.ProcessInput(delta_time);
+		timer.Update();
+		lag += timer.GetDeltaTime();
+
+		doContinue = input.ProcessInput();
 		while (lag >= fixed_time_step)
 		{
-			sceneManager.Update(fixed_time_step);
+			sceneManager.Update(); // = FixedUpdate
 			lag -= fixed_time_step;
 		}
-		sceneManager.Update(delta_time);
+		sceneManager.Update();
+		events.NotifyListeners();
 		renderer.Render();
 
 		const auto sleep_time = current_time + milliseconds(ms_per_frame) - high_resolution_clock::now();
