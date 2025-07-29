@@ -22,7 +22,9 @@ namespace dae
 		PhysicsComponent operator=(PhysicsComponent&& other) = delete;
 
 		void Update() override;
+		void Render() const override {};
 
+		void SetPhysics(bool hasGravity, bool hasCollision, bool isStatic);
 		void Jump(float speed);
 
 	private:
@@ -30,6 +32,10 @@ namespace dae
 		const float m_gravityAcceleration{ 450 };
 		const float m_fallSpeed{ 900 };
 		CollisionState m_collisionState{};
+
+		bool m_hasGravity{ false };
+		bool m_hasCollision{ true };
+		bool m_isStatic{ true };
 
 		void DoGravity();
 		void DoCollision();

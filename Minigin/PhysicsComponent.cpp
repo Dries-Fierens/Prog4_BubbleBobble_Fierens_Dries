@@ -18,6 +18,13 @@ void dae::PhysicsComponent::Update()
 	DoCollision();
 }
 
+void dae::PhysicsComponent::SetPhysics(bool hasGravity, bool hasCollision, bool isStatic)
+{
+	m_hasGravity = hasGravity;
+	m_hasCollision = hasCollision;
+	m_isStatic = isStatic;
+}
+
 void dae::PhysicsComponent::Jump(float speed)
 {
 	m_verticalSpeed = speed;
@@ -25,6 +32,8 @@ void dae::PhysicsComponent::Jump(float speed)
 
 void dae::PhysicsComponent::DoGravity()
 {
+	if (m_isStatic || !m_hasGravity) return;
+
 	const float deltaTime = Timer::GetInstance().GetDeltaTime();
 
 	m_verticalSpeed += m_gravityAcceleration * deltaTime;
@@ -52,6 +61,8 @@ void dae::PhysicsComponent::DoGravity()
 
 void dae::PhysicsComponent::DoCollision()
 {
+	if (m_isStatic || !m_hasCollision) return;
+
 	auto collider = GetOwner()->GetComponent<ColliderComponent>();
 	if (!collider) return;
 
@@ -68,19 +79,10 @@ void dae::PhysicsComponent::DoCollision()
 		{
 			const glm::vec2& position = collider->GetPosition();
 			const glm::vec2& size = collider->GetSize();
-			if (position.x < otherCollider->GetPosition().x + otherCollider->GetSize().x &&
-				position.x + size.x > otherCollider->GetPosition().x &&
-				position.y < otherCollider->GetPosition().y + otherCollider->GetSize().y &&
-				position.y + size.y > otherCollider->GetPosition().y)
-			{
-				m_collisionState.Left = position.x + size.x <= otherCollider->GetPosition().x;
-				m_collisionState.Right = position.x >= otherCollider->GetPosition().x + otherCollider->GetSize().x;
-				m_collisionState.Top = position.y + size.y <= otherCollider->GetPosition().y;
-				m_collisionState.Bottom = position.y >= otherCollider->GetPosition().y + otherCollider->GetSize().y;
-			}
+			m_collisionState.Left = position.x + size.x <= otherCollider->GetPosition().x;
+			m_collisionState.Right = position.x >= otherCollider->GetPosition().x + otherCollider->GetSize().x;
+			m_collisionState.Top = position.y + size.y <= otherCollider->GetPosition().y;
+			m_collisionState.Bottom = position.y >= otherCollider->GetPosition().y + otherCollider->GetSize().y;
 		}
-	}
-	{
-
 	}
 }
