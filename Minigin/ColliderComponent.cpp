@@ -62,7 +62,7 @@ void dae::ColliderComponent::CheckOverlapping()
 		auto otherCollider = object->GetComponent<ColliderComponent>();
 		if (otherCollider && IsOverlapping(otherCollider.get()))
 		{
-			
+
 		}
 	}
 }

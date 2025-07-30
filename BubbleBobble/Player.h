@@ -1,9 +1,7 @@
 #pragma once
-#include <string>
-#include "Scene.h"
 #include <windows.h>
+#include "GameObject.h"
 
-class GameObject;
 class Player final
 {
 public:

@@ -19,6 +19,7 @@ namespace dae
 
 		const glm::vec2& GetPosition() const { return m_position; }
 		const glm::vec2& GetSize() const { return m_size; }
+		void SetSize(const glm::vec2& size) { m_size = size; }
 		bool IsOverlapping(ColliderComponent* other);
 		void UpdatePosition();
 

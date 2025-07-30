@@ -7,12 +7,12 @@ dae::GameObject::~GameObject() = default;
 
 void dae::GameObject::Update()
 {
+	UpdateWorldPosition();
+
 	for (const auto& component : m_components)
 	{
 		component->Update();
 	}
-
-	UpdateWorldPosition();
 }
 
 void dae::GameObject::Render() const

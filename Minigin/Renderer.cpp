@@ -34,7 +34,7 @@ void dae::Renderer::Init(SDL_Window* window)
 	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
 	ImGui_ImplOpenGL3_Init();
 
-	graphPlot = std::make_unique<GraphPlot>();
+	//graphPlot = std::make_unique<GraphPlot>();
 }
 
 void dae::Renderer::Render() const
@@ -49,8 +49,8 @@ void dae::Renderer::Render() const
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 
-	graphPlot->PlotIntegers();
-	graphPlot->PlotGameObject3D();
+	//graphPlot->PlotIntegers();
+	//graphPlot->PlotGameObject3D();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

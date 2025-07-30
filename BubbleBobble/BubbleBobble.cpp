@@ -22,6 +22,7 @@
 #include "PlayerComponent.h"
 #include "AudioComponent.h"
 #include "Player.h"
+#include "Tile.h"
 
 void load()
 {
@@ -53,32 +54,65 @@ void load()
     fpsTextObject->AddComponent(fpsComponent);
     scene.Add(fpsTextObject);
 
-    //auto baseObject = std::make_shared<dae::GameObject>();
-    //baseObject->SetLocalPosition(256, 280);
-    //scene.Add(baseObject);
-
-    //auto bubbyObject = std::make_shared<dae::GameObject>(baseObject.get());
-    //auto bubbyRender = std::make_shared<dae::RenderComponent>("Player/Bubby/Idle_Anim.png", bubbyObject.get());
-    //auto rotator1 = std::make_shared<dae::RotatorComponent>(800.f, 90.f, 10.f, bubbyObject.get());
-    //bubbyObject->AddComponent(bubbyRender);
-    //bubbyObject->AddComponent(rotator1);
-    //scene.Add(bubbyObject);
-
-    //auto baseObject2 = std::make_shared<dae::GameObject>();
-    //baseObject2->SetLocalPosition(356, 280);
-    //scene.Add(baseObject2);
-
-    //auto bobbyObject = std::make_shared<dae::GameObject>(baseObject2.get());
-    //auto bobbyRender = std::make_shared<dae::RenderComponent>("Player/Bobby/Idle_Anim.png", bobbyObject.get());
-    //auto rotator2 = std::make_shared<dae::RotatorComponent>(300.f, 90.f, 50.f, bobbyObject.get());
-    //bobbyObject->AddComponent(bobbyRender);
-    //bobbyObject->AddComponent(rotator2);
-    //scene.Add(bobbyObject);
-
-	auto player1 = Player::CreatePlayer(100.f, 300.f, true, true);
+    // Players
+    auto player1 = Player::CreatePlayer(92.f, 620.f, true, true);
     scene.Add(player1);
-    auto player2 = Player::CreatePlayer(200.f, 300.f, false, true);
+    auto player2 = Player::CreatePlayer(676.f, 620.f, false, true);
     scene.Add(player2);
+
+    // Big tiles left
+    scene.Add(Tile::CreateTile(0.f, 672.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 624.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 576.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 528.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 480.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 432.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 384.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 336.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 288.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 240.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 192.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 144.f, 1, true));
+    scene.Add(Tile::CreateTile(0.f, 96.f, 1, true));
+
+    // Big tiles right
+    scene.Add(Tile::CreateTile(720.f, 672.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 624.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 576.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 528.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 480.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 432.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 384.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 336.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 288.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 240.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 192.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 144.f, 1, true));
+    scene.Add(Tile::CreateTile(720.f, 96.f, 1, true));
+
+    // Helper to add a regular tile
+    auto AddTile = [&](float x, float y) {
+        scene.Add(Tile::CreateTile(x, y, 1, false));
+        };
+
+    // Bottom floor tiles
+    std::vector<float> x_vals = { 48, 72, 96, 120, 144, 168, 192, 216, 240, 264, 288, 312,
+                                 336, 360, 384, 408, 432, 456, 480, 504, 528, 552, 576,
+                                 600, 624, 648, 672, 696 };
+    for (auto x : x_vals) AddTile(x, 672.f);
+
+    // Floors 1–3
+    std::vector<float> y_floors = { 552.f, 432.f, 312.f };
+    std::vector<std::vector<float>> x_floors = {
+        {48, 72, 168, 192, 216, 240, 264, 288, 312, 336, 360, 384, 408, 432, 456, 480, 504, 528, 552, 576, 672, 696},
+        {48, 72, 168, 192, 216, 240, 264, 288, 312, 336, 360, 384, 408, 432, 456, 480, 504, 528, 552, 576, 672, 696},
+        {48, 72, 168, 192, 216, 240, 264, 288, 312, 336, 360, 384, 408, 432, 456, 480, 504, 528, 552, 576, 672, 696}
+    };
+
+    for (size_t i = 0; i < y_floors.size(); ++i) {
+        for (auto x : x_floors[i]) AddTile(x, y_floors[i]);
+    }
+
 }
 
 int main(int, char* []) {
