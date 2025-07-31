@@ -148,6 +148,7 @@
     <ClInclude Include="AudioComponent.h" />
     <ClInclude Include="BubbleBobble.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerComponent.h" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />

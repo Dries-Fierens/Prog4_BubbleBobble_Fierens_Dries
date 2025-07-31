@@ -43,6 +43,6 @@ namespace dae
     }
     void FPSComponent::SetPosition(float x, float y)
     {
-        m_position.SetPosition(x, y, 0.0f);
+        m_position.SetPosition(x, y);
     }
 }

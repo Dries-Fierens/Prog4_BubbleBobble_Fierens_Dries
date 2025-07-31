@@ -23,7 +23,7 @@ void dae::GameObject::Render() const
 	}
 }
 
-glm::vec3 dae::GameObject::GetPosition() const
+glm::vec2 dae::GameObject::GetPosition() const
 {
 	return m_worldPosition;
 }
@@ -31,10 +31,10 @@ glm::vec3 dae::GameObject::GetPosition() const
 void dae::GameObject::SetLocalPosition(float x, float y)
 {
 	m_positionIsDirty = true;
-	m_transform.SetPosition({x, y, 0.f});
+	m_transform.SetPosition(x, y);
 }
 
-void dae::GameObject::SetLocalPosition(glm::vec3 position)
+void dae::GameObject::SetLocalPosition(glm::vec2 position)
 {
 	m_positionIsDirty = true;
 	m_transform.SetPosition(position);

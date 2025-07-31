@@ -29,7 +29,6 @@ namespace dae
 		std::string m_text;
 		Transform m_transform{};
 		std::shared_ptr<Font> m_font;
-		//std::shared_ptr<Texture2D> m_texture;
 		std::unique_ptr<RenderComponent> m_renderComponent;
 	};
 }

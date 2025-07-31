@@ -14,7 +14,6 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Texture2D.h"
-#include "Transform.h"
 #include "FPSComponent.h"
 #include "RenderComponent.h"
 #include "RotatorComponent.h"
@@ -23,6 +22,7 @@
 #include "AudioComponent.h"
 #include "Player.h"
 #include "Tile.h"
+#include "Level.h"
 
 void load()
 {
@@ -54,65 +54,7 @@ void load()
     fpsTextObject->AddComponent(fpsComponent);
     scene.Add(fpsTextObject);
 
-    // Players
-    auto player1 = Player::CreatePlayer(92.f, 620.f, true, true);
-    scene.Add(player1);
-    auto player2 = Player::CreatePlayer(676.f, 620.f, false, true);
-    scene.Add(player2);
-
-    // Big tiles left
-    scene.Add(Tile::CreateTile(0.f, 672.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 624.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 576.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 528.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 480.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 432.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 384.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 336.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 288.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 240.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 192.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 144.f, 1, true));
-    scene.Add(Tile::CreateTile(0.f, 96.f, 1, true));
-
-    // Big tiles right
-    scene.Add(Tile::CreateTile(720.f, 672.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 624.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 576.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 528.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 480.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 432.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 384.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 336.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 288.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 240.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 192.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 144.f, 1, true));
-    scene.Add(Tile::CreateTile(720.f, 96.f, 1, true));
-
-    // Helper to add a regular tile
-    auto AddTile = [&](float x, float y) {
-        scene.Add(Tile::CreateTile(x, y, 1, false));
-        };
-
-    // Bottom floor tiles
-    std::vector<float> x_vals = { 48, 72, 96, 120, 144, 168, 192, 216, 240, 264, 288, 312,
-                                 336, 360, 384, 408, 432, 456, 480, 504, 528, 552, 576,
-                                 600, 624, 648, 672, 696 };
-    for (auto x : x_vals) AddTile(x, 672.f);
-
-    // Floors 1–3
-    std::vector<float> y_floors = { 552.f, 432.f, 312.f };
-    std::vector<std::vector<float>> x_floors = {
-        {48, 72, 168, 192, 216, 240, 264, 288, 312, 336, 360, 384, 408, 432, 456, 480, 504, 528, 552, 576, 672, 696},
-        {48, 72, 168, 192, 216, 240, 264, 288, 312, 336, 360, 384, 408, 432, 456, 480, 504, 528, 552, 576, 672, 696},
-        {48, 72, 168, 192, 216, 240, 264, 288, 312, 336, 360, 384, 408, 432, 456, 480, 504, 528, 552, 576, 672, 696}
-    };
-
-    for (size_t i = 0; i < y_floors.size(); ++i) {
-        for (auto x : x_floors[i]) AddTile(x, y_floors[i]);
-    }
-
+    for (auto& gameObject : Level::CreateLevel(1)) scene.Add(gameObject);
 }
 
 int main(int, char* []) {

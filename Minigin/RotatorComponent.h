@@ -19,7 +19,7 @@ namespace dae
 		void Render() const override {};
 
 	private:
-		glm::vec3 m_position;
+		glm::vec2 m_position;
 		float m_angle{};
 		float m_speed{};
 		float m_radius{};

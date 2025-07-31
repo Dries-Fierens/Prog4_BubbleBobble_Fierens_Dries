@@ -4,7 +4,7 @@
 #include "Controller.h"
 #include "PlayerComponent.h"
 #include "MoveCommand.h"
-#include "RenderComponent.h"
+#include "SpriteComponent.h"
 #include "ColliderComponent.h"
 #include "PhysicsComponent.h"
 
@@ -48,18 +48,22 @@ std::shared_ptr<dae::GameObject> Player::CreatePlayer(float x, float y, bool isG
 		}
 	}
 
-	std::shared_ptr<dae::RenderComponent> render;
-	if (isGreen)
-		render = std::make_shared<dae::RenderComponent>("Player/Bubby/Idle_Anim.png", pPlayer.get());
-	else
-		render = std::make_shared<dae::RenderComponent>("Player/Bobby/Idle_Anim.png", pPlayer.get());
+	std::shared_ptr<dae::SpriteComponent> sprite;
+	if (isGreen) {
+		sprite = std::make_shared<dae::SpriteComponent>("../Data/Player/Bubby/Idle_Anim.png", pPlayer.get());
+		sprite->Animate(1, 2, 8, 0, 1);
+	}
+	else {
+		sprite = std::make_shared<dae::SpriteComponent>("../Data/Player/Bobby/Idle_Anim.png", pPlayer.get());
+		sprite->Animate(1, 2, 8, 0, 1);
+	}
 
 	auto collider = std::make_shared<dae::ColliderComponent>(pPlayer.get());
 	auto physics = std::make_shared<dae::PhysicsComponent>(pPlayer.get());
 	physics->SetPhysics(true, true, false);
 	auto playerComponent = std::make_shared<dae::PlayerComponent>(3, 100.f, pPlayer.get());
 
-	pPlayer->AddComponent(render);
+	pPlayer->AddComponent(sprite);
 	pPlayer->AddComponent(collider);
 	pPlayer->AddComponent(physics);
 	pPlayer->AddComponent(playerComponent);

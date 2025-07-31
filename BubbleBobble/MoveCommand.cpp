@@ -11,7 +11,7 @@ void MoveCommand::Execute()
        {
 		   if (pPlayerComponent->GetPlayerState() == dae::PlayerComponent::PlayerState::Moving)
 		   {
-               glm::vec3 position = m_pGameObject->GetPosition();
+               glm::vec2 position = m_pGameObject->GetPosition();
                position.x += m_Speed * dae::Timer::GetInstance().GetDeltaTime();
                m_pGameObject->SetLocalPosition(position);
 		   } 

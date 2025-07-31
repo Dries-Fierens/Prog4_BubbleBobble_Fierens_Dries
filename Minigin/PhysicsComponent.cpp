@@ -54,7 +54,7 @@ void dae::PhysicsComponent::DoGravity()
 		}
 	}
 
-	glm::vec3 position = GetOwner()->GetPosition();
+	glm::vec2 position = GetOwner()->GetPosition();
 	position.y += m_verticalSpeed * deltaTime;
 	GetOwner()->SetLocalPosition(position);
 }

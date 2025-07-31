@@ -19,9 +19,9 @@ namespace dae
         virtual void Update();
         virtual void Render() const;
 
-        glm::vec3 GetPosition() const;
+        glm::vec2 GetPosition() const;
         void SetLocalPosition(float x, float y);
-        void SetLocalPosition(glm::vec3 position);
+        void SetLocalPosition(glm::vec2 position);
 
         GameObject() = default;
         GameObject(GameObject* parent) { SetParent(parent); };
@@ -178,7 +178,7 @@ namespace dae
             return m_parent->IsParent(otherParent);
         }
 
-		const glm::vec3& GetWorldPosition()
+		const glm::vec2& GetWorldPosition()
         {
             if (m_positionIsDirty)
                 UpdateWorldPosition();
@@ -200,7 +200,7 @@ namespace dae
         std::vector<std::shared_ptr<BaseComponent>> m_components;
         GameObject* m_parent{ nullptr };
         std::vector<GameObject*> m_children;
-        glm::vec3 m_worldPosition{};
+        glm::vec2 m_worldPosition{};
         bool m_positionIsDirty{ true };
         Transform m_transform{};
     };
