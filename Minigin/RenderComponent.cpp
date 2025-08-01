@@ -2,6 +2,7 @@
 #include "ResourceManager.h"
 #include "GameObject.h"
 #include "Renderer.h"
+#include "Texture2D.h"
 
 dae::RenderComponent::RenderComponent(const std::string& filename, GameObject* pOwner) : BaseComponent(pOwner)
 {
@@ -34,4 +35,10 @@ void dae::RenderComponent::SetTexture(const std::string& filename)
 void dae::RenderComponent::SetTexture(std::shared_ptr<Texture2D> texture)
 {
 	m_texture = texture;
+}
+
+glm::vec2 dae::RenderComponent::GetSize() const
+{
+	
+	return m_texture.get()->GetSize();
 }

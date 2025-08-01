@@ -20,13 +20,15 @@ namespace dae
 		const glm::vec2& GetPosition() const { return m_position; }
 		const glm::vec2& GetSize() const { return m_size; }
 		void SetSize(const glm::vec2& size) { m_size = size; }
+		void ShowCollisions(bool show) { m_showCollisions = show; }
 		bool IsOverlapping(ColliderComponent* other);
 		void UpdatePosition();
 
 	private:
 		glm::vec2 m_position{};
 		glm::vec2 m_size{};
-		glm::vec4 m_color{ 1.f, 0.f, 0.f, 1.f };
+		glm::vec4 m_color{ 0.f, 0.f, 0.f, 1.f };
+		bool m_showCollisions{ false };
 
 		void CheckOverlapping();
 	};

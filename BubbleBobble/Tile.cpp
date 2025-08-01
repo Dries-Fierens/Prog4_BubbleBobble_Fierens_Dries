@@ -15,6 +15,7 @@ std::shared_ptr<dae::GameObject> Tile::CreateTile(float x, float y, int level, b
 		render = std::make_shared<dae::RenderComponent>("../Data/Levels/" + std::to_string(level) + "/small.png", pSurface.get());
 
 	auto collider = std::make_shared<dae::ColliderComponent>(pSurface.get());
+	collider->SetSize(render.get()->GetSize());
 	auto physics = std::make_shared<dae::PhysicsComponent>(pSurface.get());
 	physics->SetPhysics(false, true, true);
 

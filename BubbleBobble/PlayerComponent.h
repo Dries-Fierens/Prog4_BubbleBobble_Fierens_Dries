@@ -10,10 +10,8 @@ namespace dae {
 	public:
 		enum class PlayerState
 		{
-			Idle,
 			Moving,
-			Jumping,
-			Falling,
+			Hit,
 			Dead
 		};
 

@@ -17,6 +17,8 @@ void dae::ColliderComponent::Update()
 
 void dae::ColliderComponent::Render() const
 {
+	if (!m_showCollisions) return;
+
 	const auto renderer = Renderer::GetInstance().GetSDLRenderer();
 
 	SDL_Rect rect;
