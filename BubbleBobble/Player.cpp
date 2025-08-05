@@ -7,46 +7,13 @@
 #include "SpriteComponent.h"
 #include "ColliderComponent.h"
 #include "PhysicsComponent.h"
+#include "JumpCommand.h"
+#include "ShootCommand.h"
 
 std::shared_ptr<dae::GameObject> Player::CreatePlayer(float x, float y, bool isGreen, bool coop)
 {
 	auto pPlayer = std::make_shared<dae::GameObject>();
 	pPlayer->SetLocalPosition(x, y);
-
-	if (!coop)
-	{
-		dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), 'a', dae::InputManager::InputType::OnPressed);
-		dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), 'd', dae::InputManager::InputType::OnPressed);
-		//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), 'w', dae::InputManager::InputType::OnPressed);
-		//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<ShootCommand>(pPlayer.get()), ' ', dae::InputManager::InputType::OnDown);
-
-		dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), dae::Controller::ButtonState::Left, 0, dae::InputManager::InputType::OnPressed);
-		dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), dae::Controller::ButtonState::Right, 0, dae::InputManager::InputType::OnPressed);
-		//dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), dae::Controller::ButtonState::A, 0, dae::InputManager::InputType::OnPressed);
-		//dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<ShootCommand>(pPlayer.get()), dae::Controller::ButtonState::B, 0, dae::InputManager::InputType::OnDown);
-	}
-	else
-	{
-		if (isGreen) 
-		{
-			dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), 'a', dae::InputManager::InputType::OnPressed);
-			dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), 'd', dae::InputManager::InputType::OnPressed);
-			//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), 'w', dae::InputManager::InputType::OnPressed);
-			//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<ShootCommand>(pPlayer.get()), ' ', dae::InputManager::InputType::OnDown);
-
-			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), dae::Controller::ButtonState::Left, 1, dae::InputManager::InputType::OnPressed);
-			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), dae::Controller::ButtonState::Right, 1, dae::InputManager::InputType::OnPressed);
-			//dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), dae::Controller::ButtonState::A, 1, dae::InputManager::InputType::OnPressed);
-			//dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<ShootCommand>(pPlayer.get()), dae::Controller::ButtonState::B, 1, dae::InputManager::InputType::OnDown);
-		}
-		else 
-		{
-			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), dae::Controller::ButtonState::Left, 0, dae::InputManager::InputType::OnPressed);
-			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), dae::Controller::ButtonState::Right, 0, dae::InputManager::InputType::OnPressed);
-			//dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), dae::Controller::ButtonState::A, 0, dae::InputManager::InputType::OnPressed);
-			//dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<ShootCommand>(pPlayer.get()), dae::Controller::ButtonState::B, 0, dae::InputManager::InputType::OnDown);
-		}
-	}
 
 	std::shared_ptr<dae::SpriteComponent> sprite;
 	if (isGreen) {
@@ -68,6 +35,41 @@ std::shared_ptr<dae::GameObject> Player::CreatePlayer(float x, float y, bool isG
 	pPlayer->AddComponent(collider);
 	pPlayer->AddComponent(physics);
 	pPlayer->AddComponent(playerComponent);
+
+	if (!coop)
+	{
+		dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), 'a', dae::InputManager::InputType::OnPressed);
+		dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), 'd', dae::InputManager::InputType::OnPressed);
+		dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), 'w', dae::InputManager::InputType::OnPressed);
+		dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<ShootCommand>(pPlayer.get()), ' ', dae::InputManager::InputType::OnDown);
+
+		dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), dae::Controller::ButtonState::Left, 0, dae::InputManager::InputType::OnPressed);
+		dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), dae::Controller::ButtonState::Right, 0, dae::InputManager::InputType::OnPressed);
+		dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), dae::Controller::ButtonState::A, 0, dae::InputManager::InputType::OnPressed);
+		dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<ShootCommand>(pPlayer.get()), dae::Controller::ButtonState::B, 0, dae::InputManager::InputType::OnDown);
+	}
+	else
+	{
+		if (isGreen)
+		{
+			dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), 'a', dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), 'd', dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), 'w', dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<ShootCommand>(pPlayer.get()), ' ', dae::InputManager::InputType::OnDown);
+
+			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), dae::Controller::ButtonState::Left, 1, dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), dae::Controller::ButtonState::Right, 1, dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), dae::Controller::ButtonState::A, 1, dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<ShootCommand>(pPlayer.get()), dae::Controller::ButtonState::B, 1, dae::InputManager::InputType::OnDown);
+		}
+		else
+		{
+			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), dae::Controller::ButtonState::Left, 0, dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), dae::Controller::ButtonState::Right, 0, dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<JumpCommand>(pPlayer.get(), -450.f), dae::Controller::ButtonState::A, 0, dae::InputManager::InputType::OnPressed);
+			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<ShootCommand>(pPlayer.get()), dae::Controller::ButtonState::B, 0, dae::InputManager::InputType::OnDown);
+		}
+	}
 
 	return pPlayer;
 }

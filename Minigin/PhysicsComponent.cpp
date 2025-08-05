@@ -39,21 +39,6 @@ void dae::PhysicsComponent::DoGravity()
 	m_verticalSpeed += m_gravityAcceleration * deltaTime;
 	m_verticalSpeed = std::min(m_fallSpeed, m_verticalSpeed);
 
-	auto collider = GetOwner()->GetComponent<ColliderComponent>();
-	if (collider)
-	{
-		float colliderY = -collider->GetSize().y;
-		glm::vec2 worldPosition = GetOwner()->GetPosition();
-		if (worldPosition.y > 800)
-		{
-			GetOwner()->SetLocalPosition(worldPosition.x, colliderY);
-		}
-		else if (worldPosition.y < colliderY)
-		{
-			GetOwner()->SetLocalPosition(worldPosition.x, 800);
-		}
-	}
-
 	glm::vec2 position = GetOwner()->GetPosition();
 	position.y += m_verticalSpeed * deltaTime;
 	GetOwner()->SetLocalPosition(position);
@@ -74,39 +59,48 @@ void dae::PhysicsComponent::DoCollision()
 
 		auto otherPhysics = object->GetComponent<PhysicsComponent>();
 		auto otherCollider = object->GetComponent<ColliderComponent>();
-		if (otherCollider && otherPhysics) {
+		if (otherCollider && otherPhysics) 
+		{
 			if (!otherPhysics.get()->m_hasCollision) continue;
 
 			if (collider->IsOverlapping(otherCollider.get()))
 			{
 				glm::vec2 position = GetOwner()->GetPosition();
 				glm::vec2 otherPosition = object->GetPosition();
-				if (position.x < otherPosition.x)
-				{
-					position.x = otherPosition.x - collider->GetSize().x;
-					m_collisionState.Left = true;
-				}
-				else if (position.x > otherPosition.x + otherCollider->GetSize().x)
-				{
-					position.x = otherPosition.x + otherCollider->GetSize().x;
-					m_collisionState.Right = true;
-				}
-				if (position.y < otherPosition.y)
+
+				// Handle vertical collisions
+				if (position.y + collider->GetSize().y > otherPosition.y)
 				{
 					position.y = otherPosition.y - collider->GetSize().y;
-					m_collisionState.Top = true;
+					GetOwner()->SetLocalPosition(position);
+					collider.get()->UpdatePosition();
+					m_collisionState.Bottom = true;
 					m_verticalSpeed = 0.f;
 				}
-				else if (position.y > otherPosition.y + otherCollider->GetSize().y)
+				else if (position.y < otherPosition.y + otherCollider->GetSize().y)
 				{
-					if (m_verticalSpeed > -1.f) {
-						position.y = otherPosition.y + otherCollider->GetSize().y;
-						m_collisionState.Bottom = true;
-						m_verticalSpeed = 0.f;
-					}
+					//position.y = otherPosition.y + otherCollider->GetSize().y;
+					//GetOwner()->SetLocalPosition(position);
+					//collider.get()->UpdatePosition();
+					m_collisionState.Top = true;
+					//m_verticalSpeed = 0.f;
 				}
-				GetOwner()->SetLocalPosition(position);
-				collider.get()->UpdatePosition();
+
+				// Handle horizontal collisions
+				else if (position.x < otherPosition.x + otherCollider->GetSize().x)
+				{
+					position.x = (otherPosition.x + otherCollider->GetSize().x);
+					GetOwner()->SetLocalPosition(position);
+					collider.get()->UpdatePosition();
+					m_collisionState.Right = true;
+				}
+				else if (position.x > otherPosition.x)
+				{
+					position.x = otherPosition.x;
+					GetOwner()->SetLocalPosition(position);
+					collider.get()->UpdatePosition();
+					m_collisionState.Left = true;
+				}
 			}
 		}
 	}

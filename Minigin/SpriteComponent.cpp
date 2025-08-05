@@ -1,5 +1,4 @@
 #include "SpriteComponent.h"
-#include "ResourceManager.h"
 #include "GameObject.h"
 #include "Renderer.h"
 #include "Texture2D.h"
@@ -21,20 +20,29 @@ void dae::SpriteComponent::Update()
 {
 	m_position = GetOwner()->GetPosition();
 
-	m_currentTime += Timer::GetInstance().GetDeltaTime();
-
-	if (m_currentTime >= m_animationTime)
+	if (m_isAnimatingOnce)
 	{
-		++m_currentIndex;
-		if (m_currentIndex >= m_endIndex)
+		m_currentTime += Timer::GetInstance().GetDeltaTime();
+
+		if (m_currentTime >= m_animationTime)
 		{
-			m_currentIndex = m_startIndex;
+			++m_currentIndex;
+			if (m_currentIndex >= m_endIndex)
+			{
+				if (m_isAnimatingOnce)
+				{
+					m_isAnimatingOnce = false;
+					m_endIndex = m_endIndexOnce;
+					m_animationTime = m_animationTimeOnce;
+				}
+				m_currentIndex = m_startIndex;
+			}
+
+			m_rect.x = (m_currentIndex % m_columns) * m_rect.w;
+			m_rect.y = (m_currentIndex / m_columns) * m_rect.h;
+
+			m_currentTime = 0.f;
 		}
-
-		m_rect.x = (m_currentIndex % m_columns) * m_rect.w;
-		m_rect.y = (m_currentIndex / m_columns) * m_rect.h;
-
-		m_currentTime = 0.f;
 	}
 }
 
@@ -46,24 +54,20 @@ void dae::SpriteComponent::Render() const
 	}
 }
 
-void dae::SpriteComponent::SetTexture(const std::string& filename)
-{
-	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
-}
-
-void dae::SpriteComponent::SetTexture(std::shared_ptr<Texture2D> texture)
-{
-	m_texture = texture;
-}
-
 void dae::SpriteComponent::Animate(int rows, int columns, int frames, int startIndex, int endIndex)
 {
+	if (m_isAnimatingOnce)
+	{
+		m_isAnimatingOnce = false;
+	}
+
 	m_rows = rows;
 	m_columns = columns;
 	m_currentIndex = startIndex;
 	m_startIndex = startIndex;
 	m_endIndex = endIndex;
 	m_animationTime = rows * columns / float(frames);
+	m_currentTime = 0.f;
 
 	m_rect.w = int(m_texture->GetSize().x) / m_columns;
 	m_rect.h = int(m_texture->GetSize().y) / m_rows;
@@ -74,12 +78,24 @@ void dae::SpriteComponent::Animate(int rows, int columns, int frames, int startI
 	m_height = float(m_rect.h);
 }
 
-glm::vec2 dae::SpriteComponent::GetSize() const
+void dae::SpriteComponent::AnimateOnce(int rows, int columns, int frames, int startIndex, int endIndex)
 {
-	return glm::vec2(m_width, m_height);
-}
+	if (m_isAnimatingOnce)
+	{
+		m_endIndex = m_endIndexOnce;
+		m_startIndex = m_startIndexOnce;
+	}
 
-void dae::SpriteComponent::SetOffset(const glm::vec2& offset)
-{
-	m_offset = offset;
+	m_isAnimatingOnce = true;
+	m_currentTime = 0.f;
+	m_rows = rows;
+	m_columns = columns;
+	m_animationTimeOnce = m_animationTime;
+	m_endIndexOnce = endIndex;
+	m_currentIndex = startIndex;
+	m_endIndex = endIndex;
+	m_animationTime = m_rows * m_columns / float(frames);
+
+	m_rect.x = (m_currentIndex % m_columns) * m_rect.w;
+	m_rect.y = (m_currentIndex / m_columns) * m_rect.h;
 }

@@ -12,7 +12,6 @@ dae::ColliderComponent::ColliderComponent(GameObject* pOwner)
 void dae::ColliderComponent::Update()
 {
 	UpdatePosition();
-	CheckOverlapping();
 }
 
 void dae::ColliderComponent::Render() const
@@ -24,8 +23,8 @@ void dae::ColliderComponent::Render() const
 	SDL_Rect rect;
 	rect.x = static_cast<int>(m_position.x);
 	rect.y = static_cast<int>(m_position.y);
-	rect.w = static_cast<int>(m_size.x);
-	rect.h = static_cast<int>(m_size.y);
+	rect.w = static_cast<int>(2);
+	rect.h = static_cast<int>(2);
 
 	SDL_SetRenderDrawColor(renderer, static_cast<Uint8>(m_color.r), static_cast<Uint8>(m_color.g), static_cast<Uint8>(m_color.b), static_cast<Uint8>(m_color.a));
 	SDL_RenderDrawRect(renderer, &rect);
@@ -51,20 +50,4 @@ bool dae::ColliderComponent::IsOverlapping(ColliderComponent* other)
 void dae::ColliderComponent::UpdatePosition()
 {
 	m_position = GetOwner()->GetPosition();
-}
-
-void dae::ColliderComponent::CheckOverlapping()
-{
-	Scene* scene = SceneManager::GetInstance().GetCurrentScene();
-
-	for (auto& object : scene->GetGameObjects())
-	{
-		if (object.get() == GetOwner()) continue;
-
-		auto otherCollider = object->GetComponent<ColliderComponent>();
-		if (otherCollider && IsOverlapping(otherCollider.get()))
-		{
-
-		}
-	}
 }

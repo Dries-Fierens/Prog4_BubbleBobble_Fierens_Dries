@@ -26,6 +26,7 @@ namespace dae {
 		void Render() const override;
 
 		void SetColor(bool isGreen);
+		bool GetColor() const { return m_isGreen; }
 		PlayerState GetPlayerState() const { return m_playerState; }
 		void SetPlayerState(PlayerState state) { m_playerState = state; }
 
@@ -34,6 +35,6 @@ namespace dae {
 		int m_health;
 		bool m_isGreen;
 		PlayerState m_playerState{ PlayerState::Moving };
+
 	};
 }
-

@@ -24,6 +24,7 @@ namespace dae
 		void Update() override;
 		void Render() const override {};
 
+		CollisionState GetCollisionState() const { return m_collisionState; }
 		void SetPhysics(bool hasGravity, bool hasCollision, bool isStatic);
 		void Jump(float speed);
 

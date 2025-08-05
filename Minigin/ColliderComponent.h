@@ -27,10 +27,8 @@ namespace dae
 	private:
 		glm::vec2 m_position{};
 		glm::vec2 m_size{};
-		glm::vec4 m_color{ 0.f, 0.f, 0.f, 1.f };
-		bool m_showCollisions{ false };
-
-		void CheckOverlapping();
+		glm::vec4 m_color{ 1.f, 1.f, 1.f, 1.f };
+		bool m_showCollisions{ true };
 	};
 }
 
