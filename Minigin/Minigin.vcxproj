@@ -110,7 +110,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;xinput.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;XInput.lib;xinput.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -132,7 +132,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;xinput.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;XInput.lib;xinput.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,7 +157,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;XInput.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -183,7 +183,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;XInput.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
