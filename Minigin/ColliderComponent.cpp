@@ -23,8 +23,8 @@ void dae::ColliderComponent::Render() const
 	SDL_Rect rect;
 	rect.x = static_cast<int>(m_position.x);
 	rect.y = static_cast<int>(m_position.y);
-	rect.w = static_cast<int>(2);
-	rect.h = static_cast<int>(2);
+	rect.w = static_cast<int>(m_size.x);
+	rect.h = static_cast<int>(m_size.y);
 
 	SDL_SetRenderDrawColor(renderer, static_cast<Uint8>(m_color.r), static_cast<Uint8>(m_color.g), static_cast<Uint8>(m_color.b), static_cast<Uint8>(m_color.a));
 	SDL_RenderDrawRect(renderer, &rect);

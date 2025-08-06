@@ -66,18 +66,20 @@ void dae::PhysicsComponent::DoCollision()
 			if (collider->IsOverlapping(otherCollider.get()))
 			{
 				glm::vec2 position = GetOwner()->GetPosition();
+				glm::vec2 size = collider->GetSize();
 				glm::vec2 otherPosition = object->GetPosition();
+				glm::vec2 otherSize = otherCollider->GetSize();
 
 				// Handle vertical collisions
-				if (position.y + collider->GetSize().y > otherPosition.y)
+				if (position.y + size.y > otherPosition.y)
 				{
-					position.y = otherPosition.y - collider->GetSize().y;
+					position.y = otherPosition.y - size.y;
 					GetOwner()->SetLocalPosition(position);
 					collider.get()->UpdatePosition();
 					m_collisionState.Bottom = true;
 					m_verticalSpeed = 0.f;
 				}
-				else if (position.y < otherPosition.y + otherCollider->GetSize().y)
+				else if (position.y < otherPosition.y + otherSize.y)
 				{
 					//position.y = otherPosition.y + otherCollider->GetSize().y;
 					//GetOwner()->SetLocalPosition(position);
@@ -87,19 +89,19 @@ void dae::PhysicsComponent::DoCollision()
 				}
 
 				// Handle horizontal collisions
-				else if (position.x < otherPosition.x + otherCollider->GetSize().x)
+				else if (position.x < otherPosition.x + otherSize.x)
 				{
-					position.x = (otherPosition.x + otherCollider->GetSize().x);
-					GetOwner()->SetLocalPosition(position);
-					collider.get()->UpdatePosition();
-					m_collisionState.Right = true;
-				}
-				else if (position.x > otherPosition.x)
-				{
-					position.x = otherPosition.x;
+					position.x = (otherPosition.x + otherSize.x) + 1.f;
 					GetOwner()->SetLocalPosition(position);
 					collider.get()->UpdatePosition();
 					m_collisionState.Left = true;
+				}
+				else if (position.x + size.x > otherPosition.x)
+				{
+					position.x = otherPosition.x - 1.f;
+					GetOwner()->SetLocalPosition(position);
+					collider.get()->UpdatePosition();
+					m_collisionState.Right = true;
 				}
 			}
 		}
