@@ -156,6 +156,7 @@
     <ClInclude Include="AudioComponent.h" />
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="BubbleBobble.h" />
+    <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="Level.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="ShootCommand.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
@@ -171,11 +173,13 @@
     <ClCompile Include="AudioComponent.cpp" />
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
+    <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
+    <ClCompile Include="RotatorComponent.cpp" />
     <ClCompile Include="ShootCommand.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>

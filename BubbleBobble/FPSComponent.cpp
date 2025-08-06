@@ -11,9 +11,9 @@
 
 namespace dae
 {
-	FPSComponent::FPSComponent(std::shared_ptr<Font> font, GameObject* pOwner) : 
-        BaseComponent(pOwner), 
-        m_FPS(0.f), 
+    FPSComponent::FPSComponent(std::shared_ptr<Font> font, GameObject* pOwner) :
+        BaseComponent(pOwner),
+        m_FPS(0.f),
         m_Timer{},
         m_textComponent(std::make_unique<TextComponent>("0 FPS", font, pOwner))
     {
@@ -32,9 +32,9 @@ namespace dae
         ss << std::fixed << std::setprecision(1) << m_FPS;
         std::string fps = ss.str() + " FPS";
 
-		m_textComponent->SetText(fps);
+        m_textComponent->SetText(fps);
 
-		m_textComponent->Update();
+        m_textComponent->Update();
     }
 
     void FPSComponent::Render() const
