@@ -1,7 +1,7 @@
 #include "SceneLoader.h"
 #include "MainMenu.h"
 
-void SceneLoader::OnEvent(const Event& e)
+void SceneLoader::OnEvent(const Event& /*e*/)
 {
 }
 
