@@ -160,11 +160,13 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RotatorComponent.h" />
+    <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="ShootCommand.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
@@ -176,10 +178,12 @@
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="RotatorComponent.cpp" />
+    <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="ShootCommand.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>

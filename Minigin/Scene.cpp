@@ -42,6 +42,16 @@ void Scene::Render() const
 	}
 }
 
+const std::string& dae::Scene::GetName() const
+{
+	return m_name;
+}
+
+void dae::Scene::SetName(const std::string& name)
+{
+	m_name = name;
+}
+
 std::vector<std::shared_ptr<GameObject>> dae::Scene::GetGameObjects() const
 {
 	return m_objects;

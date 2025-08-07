@@ -25,6 +25,14 @@ void dae::SceneManager::SetCurrentScene(const Scene* pScene)
 	}
 }
 
+void dae::SceneManager::SetCurrentScene(const std::string& name)
+{
+	for (size_t i = 0; i < m_scenes.size(); ++i)
+	{
+		if (m_scenes[i]->GetName() == name) m_currentScene = static_cast<int>(i);
+	}
+}
+
 dae::Scene* dae::SceneManager::GetCurrentScene() const
 {
 	if (m_currentScene != -1 && m_scenes.size() != 0) return m_scenes[m_currentScene].get();

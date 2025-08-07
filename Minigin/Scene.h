@@ -17,6 +17,9 @@ namespace dae
 
 		std::vector<std::shared_ptr<GameObject>> GetGameObjects() const;
 
+		const std::string& GetName() const;
+		void SetName(const std::string& name);
+
 		~Scene();
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;

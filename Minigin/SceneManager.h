@@ -17,6 +17,7 @@ namespace dae
 
 		Scene* GetCurrentScene() const;
 		void SetCurrentScene(const Scene* pScene);
+		void SetCurrentScene(const std::string& name);
 
 	private:
 		friend class Singleton<SceneManager>;

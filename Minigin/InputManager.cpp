@@ -104,3 +104,9 @@ void dae::InputManager::AddKeyboardCommand(std::unique_ptr<Command> pCommand, un
 	KeyboardInput input{ keyboardKey, type };
 	m_pKeyboardMap.insert(std::pair(input, std::move(pCommand)));
 }
+
+void dae::InputManager::RemoveInputs()
+{
+	m_pControllerMap.clear();
+	m_pKeyboardMap.clear();
+}

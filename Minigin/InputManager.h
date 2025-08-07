@@ -24,6 +24,7 @@ namespace dae
 
 		void AddControllerCommand(std::unique_ptr<Command> pCommand, Controller::ButtonState button, unsigned int controllerId, InputType type);
 		void AddKeyboardCommand(std::unique_ptr<Command> pCommand, unsigned int keyboardKey, InputType type);
+		void RemoveInputs();
 
 	private:
 		struct ControllerInput
