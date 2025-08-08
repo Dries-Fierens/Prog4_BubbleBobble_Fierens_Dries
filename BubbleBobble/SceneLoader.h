@@ -24,6 +24,7 @@ public:
 
 	void Initialize();
 	void SkipLevel();
+	void SetGameState(GameState state) { m_GameState = state; }
 
 private:
 	friend class Singleton<SceneLoader>;

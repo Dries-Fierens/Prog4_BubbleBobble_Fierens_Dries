@@ -28,9 +28,6 @@
 void load()
 {
 	SceneLoader::GetInstance().Initialize();
-
-	//dae::Scene* scene = dae::SceneManager::GetInstance().GetCurrentScene();
- //   for (auto& gameObject : Level::CreateLevel(1)) scene->Add(gameObject);
 }
 
 int main(int, char* []) {

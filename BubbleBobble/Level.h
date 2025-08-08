@@ -5,6 +5,6 @@
 class Level final
 {
 public:
-	static std::vector<std::shared_ptr<dae::GameObject>> CreateLevel(int levelNumber);
+	static std::vector<std::shared_ptr<dae::GameObject>> CreateLevel(int levelNumber, bool coop);
 };
 

@@ -9,7 +9,7 @@
 #include "Tile.h"
 #include "Player.h"
 
-std::vector<std::shared_ptr<dae::GameObject>> Level::CreateLevel(int levelNumber)
+std::vector<std::shared_ptr<dae::GameObject>> Level::CreateLevel(int levelNumber, bool coop)
 {
     std::string line;
 	std::string filePath = "../Data/Levels/" + std::to_string(levelNumber) + "/Data.txt";
@@ -48,7 +48,7 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::CreateLevel(int levelNumber
                 bool isGreen;
                 iss >> x >> y >> std::boolalpha >> isGreen;
 
-                auto player = Player::CreatePlayer(x, y, isGreen, true);
+                auto player = Player::CreatePlayer(x, y, isGreen, coop);
                 level.push_back(player);
             }
             else if (type == "ZenChan") {

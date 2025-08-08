@@ -8,6 +8,8 @@
 #include "ResourceManager.h"
 #include "TextComponent.h"
 #include "FPSComponent.h"
+#include "StartSingleplayerCommand.h"
+#include "StartCoopCommand.h"
 
 void MainMenu::Create()
 {
@@ -24,9 +26,9 @@ void MainMenu::Create()
 	dae::SceneManager::GetInstance().SetCurrentScene(currentScene);
 
 	dae::InputManager::GetInstance().RemoveInputs();
-	//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartSingleplayerCommand>(), SDL_SCANCODE_1, dae::InputManager::InputType::OnDown);
-	//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartCoopCommand>(), SDL_SCANCODE_2, dae::InputManager::InputType::OnDown);
-	//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartVersusCommand>(), SDL_SCANCODE_3, dae::InputManager::InputType::OnDown);
+	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartSingleplayerCommand>(), '1', dae::InputManager::InputType::OnDown);
+	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartCoopCommand>(), '2', dae::InputManager::InputType::OnDown);
+	//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartVersusCommand>(), '3', dae::InputManager::InputType::OnDown);
 
    
 	auto go = std::make_shared<dae::GameObject>();
@@ -41,14 +43,13 @@ void MainMenu::Create()
 	go->SetLocalPosition(800.f / 2 - logoBubbleBobble.get()->GetSize().x / 2, 50);
 	currentScene->Add(go);
 
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	auto fontPang = dae::ResourceManager::GetInstance().LoadFont("../Data/Fonts/Pang.ttf", 20);
     auto fpsTextObject = std::make_shared<dae::GameObject>();
-    auto fpsComponent = std::make_shared<dae::FPSComponent>(font, fpsTextObject.get());
+    auto fpsComponent = std::make_shared<dae::FPSComponent>(fontPang, fpsTextObject.get());
     fpsTextObject->SetLocalPosition(10, 10);
     fpsTextObject->AddComponent(fpsComponent);
     currentScene->Add(fpsTextObject);
 
-	auto fontPang = dae::ResourceManager::GetInstance().LoadFont("../Data/Fonts/Pang.ttf", 20);
 	auto fontNES = dae::ResourceManager::GetInstance().LoadFont("../Data/Fonts/Pixel_NES.otf", 32);
 
 	auto singleplayer = std::make_shared<dae::GameObject>();

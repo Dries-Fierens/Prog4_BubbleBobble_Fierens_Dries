@@ -168,6 +168,8 @@
     <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="ShootCommand.h" />
+    <ClInclude Include="StartCoopCommand.h" />
+    <ClInclude Include="StartSingleplayerCommand.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
@@ -185,6 +187,8 @@
     <ClCompile Include="RotatorComponent.cpp" />
     <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="ShootCommand.cpp" />
+    <ClCompile Include="StartCoopCommand.cpp" />
+    <ClCompile Include="StartSingleplayerCommand.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
