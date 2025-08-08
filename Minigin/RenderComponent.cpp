@@ -39,6 +39,9 @@ void dae::RenderComponent::SetTexture(std::shared_ptr<Texture2D> texture)
 
 glm::vec2 dae::RenderComponent::GetSize() const
 {
-	
+	if (!m_texture)
+	{
+		return glm::vec2(0, 0);
+	}
 	return m_texture.get()->GetSize();
 }

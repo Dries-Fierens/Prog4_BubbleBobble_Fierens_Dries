@@ -23,6 +23,7 @@ namespace dae
 		void Render() const override;
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
+		glm::vec2 GetSize() const;
 
 	private:
 		bool m_needsUpdate;

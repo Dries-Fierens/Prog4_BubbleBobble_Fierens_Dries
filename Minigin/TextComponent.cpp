@@ -49,3 +49,8 @@ void dae::TextComponent::SetPosition(const float x, const float y)
 {
 	m_transform.SetPosition(x, y);
 }
+
+glm::vec2 dae::TextComponent::GetSize() const
+{
+	return m_renderComponent.get()->GetSize();
+}
