@@ -40,6 +40,9 @@ bool dae::InputManager::ProcessInput()
 		}
 	}
 
+	// Clear previously pressed keys (F1 couldn't be pressed after one level skip)
+	m_PressedKeys.clear();
+
 	// Process keyboard inputs
 	const Uint8* state = SDL_GetKeyboardState(nullptr);
 	for (auto& map : m_pKeyboardMap)

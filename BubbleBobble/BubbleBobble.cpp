@@ -23,11 +23,11 @@
 #include "Player.h"
 #include "Tile.h"
 #include "Level.h"
-#include "SceneLoader.h"
+#include "GameManager.h"
 
 void load()
 {
-	SceneLoader::GetInstance().Initialize();
+    GameManager::GetInstance().Initialize();
 }
 
 int main(int, char* []) {

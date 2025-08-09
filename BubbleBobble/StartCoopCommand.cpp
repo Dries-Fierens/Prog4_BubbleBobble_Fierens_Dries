@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "SceneManager.h"
 #include "Level.h"
-#include "SceneLoader.h"
+#include "GameManager.h"
 #include "InputManager.h"
 
 void StartCoopCommand::Execute()
@@ -12,8 +12,8 @@ void StartCoopCommand::Execute()
 	dae::InputManager::GetInstance().RemoveInputs();
 	currentScene->RemoveAll();
 	currentScene->SetName("Level 1");
-	for (auto& gameObject : Level::CreateLevel(1, true)) currentScene->Add(gameObject);
+	for (auto& gameObject : Level::Create(1)) currentScene->Add(gameObject);
 
-	SceneLoader::GetInstance().SetGameState(SceneLoader::GameState::Coop);
+	GameManager::GetInstance().SetGameState(GameManager::GameState::Coop);
 }
 

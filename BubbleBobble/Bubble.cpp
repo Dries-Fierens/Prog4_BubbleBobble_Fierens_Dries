@@ -4,7 +4,7 @@
 #include "SpriteComponent.h"
 #include "ColliderComponent.h"
 
-std::shared_ptr<dae::GameObject> Bubble::CreateBubble(const dae::GameObject* /*gameObject*/)
+std::shared_ptr<dae::GameObject> Bubble::Create(const dae::GameObject* /*gameObject*/)
 {
 	//auto player = gameObject->GetComponent<dae::PlayerComponent>();
 

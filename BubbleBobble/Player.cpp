@@ -9,14 +9,16 @@
 #include "PhysicsComponent.h"
 #include "JumpCommand.h"
 #include "ShootCommand.h"
+#include "GameManager.h"
 
-std::shared_ptr<dae::GameObject> Player::CreatePlayer(float x, float y, bool isGreen, bool coop)
+std::shared_ptr<dae::GameObject> Player::Create(float x, float y, bool isGreen)
 {
 	auto pPlayer = std::make_shared<dae::GameObject>();
 	pPlayer->SetLocalPosition(x, y);
 
 	std::shared_ptr<dae::SpriteComponent> sprite;
-	if (isGreen) {
+	if (isGreen)
+	{
 		sprite = std::make_shared<dae::SpriteComponent>("../Data/Player/Bubby/Idle_Anim.png", pPlayer.get());
 		sprite->Animate(1, 2, 8, 0, 1);
 	}
@@ -36,7 +38,7 @@ std::shared_ptr<dae::GameObject> Player::CreatePlayer(float x, float y, bool isG
 	pPlayer->AddComponent(physics);
 	pPlayer->AddComponent(playerComponent);
 
-	if (!coop)
+	if (GameManager::GetInstance().GetGameState() == GameManager::GameState::Singleplayer)
 	{
 		dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), -200.f), 'a', dae::InputManager::InputType::OnPressed);
 		dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MoveCommand>(pPlayer.get(), 200.f), 'd', dae::InputManager::InputType::OnPressed);

@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Level.h"
-#include "SceneLoader.h"
+#include "GameManager.h"
 #include "InputManager.h"
 
 void StartSingleplayerCommand::Execute()
@@ -12,7 +12,7 @@ void StartSingleplayerCommand::Execute()
 	dae::InputManager::GetInstance().RemoveInputs();
 	currentScene->RemoveAll();
 	currentScene->SetName("Level 1");
-	for (auto& gameObject : Level::CreateLevel(1, false)) currentScene->Add(gameObject);
+	for (auto& gameObject : Level::Create(1)) currentScene->Add(gameObject);
 
-	SceneLoader::GetInstance().SetGameState(SceneLoader::GameState::Singleplayer);
+	GameManager::GetInstance().SetGameState(GameManager::GameState::Singleplayer);
 }

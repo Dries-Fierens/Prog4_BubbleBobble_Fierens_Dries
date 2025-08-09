@@ -5,6 +5,6 @@
 class Player final
 {
 public:
-	static std::shared_ptr<dae::GameObject> CreatePlayer(float x, float y, bool isGreen, bool coop);
+	static std::shared_ptr<dae::GameObject> Create(float x, float y, bool isGreen);
 };
 

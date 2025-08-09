@@ -3,7 +3,7 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 
-std::shared_ptr<dae::GameObject> Tile::CreateTile(float x, float y, int level, bool isBigTile)
+std::shared_ptr<dae::GameObject> Tile::Create(float x, float y, int level, bool isBigTile)
 {
 	auto pSurface = std::make_shared<dae::GameObject>();
 	pSurface->SetLocalPosition(x, y);

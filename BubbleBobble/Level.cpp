@@ -8,8 +8,11 @@
 #include <algorithm>
 #include "Tile.h"
 #include "Player.h"
+#include "InputManager.h"
+#include "SkipLevelCommand.h"
+#include "GameManager.h"
 
-std::vector<std::shared_ptr<dae::GameObject>> Level::CreateLevel(int levelNumber, bool coop)
+std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 {
     std::string line;
 	std::string filePath = "../Data/Levels/" + std::to_string(levelNumber) + "/Data.txt";
@@ -38,7 +41,7 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::CreateLevel(int levelNumber
                 float y = std::stof(args.substr(commaPos + 1));
 
                 bool isBig = (type == "BigTile" || type == "BigTileInvis");
-                auto tile = Tile::CreateTile(x, y, levelNumber, isBig);
+                auto tile = Tile::Create(x, y, levelNumber, isBig);
 				level.push_back(tile);
             }
             else if (type == "Player") {
@@ -48,7 +51,7 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::CreateLevel(int levelNumber
                 bool isGreen;
                 iss >> x >> y >> std::boolalpha >> isGreen;
 
-                auto player = Player::CreatePlayer(x, y, isGreen, coop);
+                auto player = Player::Create(x, y, isGreen);
                 level.push_back(player);
             }
             else if (type == "ZenChan") {
@@ -58,13 +61,15 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::CreateLevel(int levelNumber
                 //float x = std::stof(args.substr(0, commaPos));
                 //float y = std::stof(args.substr(commaPos + 1));
 
-                //auto zenChan = ZenChan::CreateEnemy(x, y);
+                //auto zenChan = ZenChan::Create(x, y);
                 //std::cout << "ZenChan: (" << x << ", " << y << ")\n";
             }
         }
 
         file.close();
     }
+
+    dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<SkipLevelCommand>(), SDLK_F1, dae::InputManager::InputType::OnDown);
 
     return level;
 }
