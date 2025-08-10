@@ -2,11 +2,14 @@
 #include "Audio.h"
 #include <mutex>
 #include <queue>
+#include <condition_variable>
+#include <iostream>
 
 class ConsoleAudio final : public Audio
 {
 public:
     ConsoleAudio();
+	~ConsoleAudio() override;
 
     virtual void Update() override;
 
@@ -16,12 +19,7 @@ public:
     virtual int LoadSound(const char* file) override;
 
 private:
-    void Initialize();
-
-    bool m_running;
-    std::mutex m_mutex;
-    std::condition_variable m_conditionVariable;
-    std::queue<int> m_queue;
-    std::vector<Mix_Chunk*> m_pSounds;
+    class ConsoleAudioImpl;
+    std::unique_ptr<ConsoleAudioImpl> m_pImpl{};
 };
 

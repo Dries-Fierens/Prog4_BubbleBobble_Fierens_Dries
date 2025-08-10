@@ -1,5 +1,6 @@
 #pragma once
 #include <glm.hpp>
+#include <memory>
 
 namespace dae
 {
@@ -43,7 +44,7 @@ namespace dae
 
 	private:
 		class ControllerImpl;
-		ControllerImpl* m_pImpl{};
+		std::unique_ptr<ControllerImpl> m_pImpl{};
 		unsigned int m_controllerIndex{};
 	};
 }

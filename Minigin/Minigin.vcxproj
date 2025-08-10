@@ -99,7 +99,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.8.1\include;$(SolutionDir)3rdParty\SDL2_mixer-2.8.1;$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -110,7 +110,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;XInput.lib;xinput.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;XInput.lib;$(SolutionDir)3rdParty\SDL2_mixer\lib\x86\SDL2_mixer.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.8.1\include;$(SolutionDir)3rdParty\SDL2_mixer-2.8.1;$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -132,7 +132,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;XInput.lib;xinput.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;XInput.lib;$(SolutionDir)3rdParty\SDL2_mixer\lib\x64\SDL2_mixer.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,7 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.8.1\include;$(SolutionDir)3rdParty\SDL2_mixer-2.8.1;$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -157,7 +157,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;XInput.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;XInput.lib;$(SolutionDir)3rdParty\SDL2_mixer\lib\x86\SDL2_mixer.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x86\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x86\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -169,7 +169,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.8.1\include;$(SolutionDir)3rdParty\SDL2_mixer-2.8.1;$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;$(SolutionDir)3rdParty\imgui-plot-master;$(SolutionDir)3rdParty\imgui-1.91.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -183,7 +183,7 @@
     </Link>
     <PostBuildEvent />
     <Lib>
-      <AdditionalDependencies>opengl32.lib;XInput.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;XInput.lib;$(SolutionDir)3rdParty\SDL2_mixer\lib\x64\SDL2_mixer.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2.lib;$(SolutionDir)3rdParty\SDL2\lib\x64\SDL2main.lib;$(SolutionDir)3rdParty\SDL2_image\lib\x64\SDL2_image.lib;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

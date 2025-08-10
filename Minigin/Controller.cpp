@@ -39,12 +39,11 @@ private:
 dae::Controller::Controller(unsigned int controllerIndex)
 	: m_controllerIndex{ controllerIndex }
 {
-	m_pImpl = new ControllerImpl(static_cast<int>(controllerIndex));
+	m_pImpl = std::make_unique<ControllerImpl>(controllerIndex);
 }
 
 dae::Controller::~Controller()
 {
-	delete m_pImpl;
 }
 
 void dae::Controller::Update()

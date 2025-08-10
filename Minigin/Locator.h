@@ -1,31 +1,31 @@
 #pragma once
 #include "Audio.h"
 #include "NullAudio.h"
+#include "ConsoleAudio.h"
+#include <memory>
 
 class Locator
 {
 public:
-    static void Initialize() { service_ = &nullService_; }
+    Locator() = default;
+    ~Locator() = default;
+    Locator(const Locator&) = delete;
+    Locator(Locator&&) = delete;
+    Locator& operator=(const Locator&) = delete;
+    Locator& operator=(Locator&&) = delete;
 
-    static Audio* GetAudio() { return service_; }
+    static void Initialize() { service_ = std::make_unique<ConsoleAudio>(); }
 
-    static void Provide(Audio* service)
+    static Audio* GetAudio() { return service_.get(); }
+
+    static void SetAudio(Audio* service)
     {
-        if (service == nullptr) service_ = &nullService_;
-        else service_ = service;
-    }
-
-    static void Quit()
-    {
-        if (service_ != &nullService_ && service_ != nullptr)
-        {
-            delete service_;
-            service_ = nullptr;
-        }
+        if (service == nullptr) service_ = std::make_unique<NullAudio>();
+        else service_ = std::unique_ptr<Audio>(service);
     }
 
 private:
-    static Audio* service_;
-    static NullAudio nullService_;
+    static std::unique_ptr<Audio> service_;
+	static NullAudio nullService_;
 };
 

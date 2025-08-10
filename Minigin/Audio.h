@@ -1,6 +1,4 @@
-#pragma once  
-#include "../3rdParty/SDL2_mixer-2.8.1/include/SDL_mixer.h"
-#include <SDL.h>
+#pragma once
 
 class Audio  
 {  
@@ -8,11 +6,10 @@ public:
    Audio() = default;  
    virtual ~Audio() {};  
 
-   Audio(const Audio&) = delete;  
-   Audio(Audio&&) noexcept = delete;  
-
-   Audio& operator=(const Audio&) = delete;  
-   Audio& operator=(Audio&&) noexcept = delete;  
+   Audio(const Audio&) = delete;
+   Audio(Audio&&) noexcept = delete;
+   Audio& operator=(const Audio&) = delete;
+   Audio& operator=(Audio&&) noexcept = delete; 
 
    virtual void Update() = 0;  
 

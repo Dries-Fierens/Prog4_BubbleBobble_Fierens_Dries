@@ -66,7 +66,7 @@ bool dae::InputManager::ProcessInput()
 
 		for (auto& map : m_pControllerMap)
 		{
-			if (map.first.controllerID == controller->GetIndex())
+			if (map.first.controllerIndex == controller->GetIndex())
 			{
 				if ((map.first.type == InputType::OnDown && controller->IsDown(map.first.button)) ||
 					(map.first.type == InputType::OnPressed && controller->IsPressed(map.first.button)) ||
@@ -81,24 +81,24 @@ bool dae::InputManager::ProcessInput()
 	return true;
 }
 
-void dae::InputManager::AddControllerCommand(std::unique_ptr<Command> pCommand, Controller::ButtonState button, unsigned int controllerId, InputType type)
+void dae::InputManager::AddControllerCommand(std::unique_ptr<Command> pCommand, Controller::ButtonState button, unsigned int controllerIndex, InputType type)
 {
-	bool doesControllerExist = false;
+	bool controllerExists = false;
 	for (const auto& controller : m_pControllers)
 	{
-		if (controller->GetIndex() == controllerId)
+		if (controller->GetIndex() == controllerIndex)
 		{
-			doesControllerExist = true;
+			controllerExists = true;
 			break;
 		}
 	}
 
-	if (doesControllerExist == false)
+	if (controllerExists == false)
 	{
-		m_pControllers.push_back(std::make_unique<Controller>(controllerId));
+		m_pControllers.push_back(std::make_unique<Controller>(controllerIndex));
 	}
 
-	ControllerInput input{ controllerId, button, type };
+	ControllerInput input{ controllerIndex, button, type };
 	m_pControllerMap.insert(std::pair(input, std::move(pCommand)));
 }
 

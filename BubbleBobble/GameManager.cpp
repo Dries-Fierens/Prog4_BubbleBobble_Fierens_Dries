@@ -8,6 +8,7 @@
 
 void GameManager::OnEvent(const Event& /*e*/)
 {
+	// Player died => Skip level
 }
 
 void GameManager::Initialize()

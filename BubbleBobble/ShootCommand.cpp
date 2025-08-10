@@ -2,9 +2,13 @@
 #include "PlayerComponent.h"
 #include "SpriteComponent.h"
 #include "SceneManager.h"
+#include "Locator.h"
+#include "Audio.h"
 
 void ShootCommand::Execute()
 {
+	Locator::GetAudio()->LoadSound("../Data/Sounds/Player/Shoot.wav");
+
 	auto player = m_pGameObject->GetComponent<dae::PlayerComponent>();
 	auto sprite = m_pGameObject->GetComponent<dae::SpriteComponent>();
 
