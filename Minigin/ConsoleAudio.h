@@ -11,12 +11,7 @@ public:
     ConsoleAudio();
 	~ConsoleAudio() override;
 
-    virtual void Update() override;
-
-    virtual void PlaySound(int soundID) override;
-    virtual void StopSound(int soundID) override;
-    virtual void StopAllSounds() override;
-    virtual int LoadSound(const char* file) override;
+    virtual void PlaySound(const std::string& file) override;
 
 private:
     class ConsoleAudioImpl;

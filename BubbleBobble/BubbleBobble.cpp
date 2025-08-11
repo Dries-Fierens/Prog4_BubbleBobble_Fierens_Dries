@@ -24,9 +24,11 @@
 #include "Tile.h"
 #include "Level.h"
 #include "GameManager.h"
+#include "Locator.h"
 
 void load()
 {
+    Locator::Initialize();
     GameManager::GetInstance().Initialize();
 }
 

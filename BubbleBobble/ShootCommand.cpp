@@ -7,7 +7,7 @@
 
 void ShootCommand::Execute()
 {
-	Locator::GetAudio()->LoadSound("../Data/Sounds/Player/Shoot.wav");
+	Locator::GetAudio()->PlaySound("../Data/Player/Shoot.wav");
 
 	auto player = m_pGameObject->GetComponent<dae::PlayerComponent>();
 	auto sprite = m_pGameObject->GetComponent<dae::SpriteComponent>();

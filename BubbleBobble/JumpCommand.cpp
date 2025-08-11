@@ -1,9 +1,12 @@
 #include "JumpCommand.h"
 #include "PhysicsComponent.h"
 #include "PlayerComponent.h"
+#include "Locator.h"
 
 void JumpCommand::Execute()
 {
+	Locator::GetAudio()->PlaySound("../Data/Player/Jump.wav");
+
 	if (m_pGameObject)
 	{
 		auto player = m_pGameObject->GetComponent<dae::PlayerComponent>();
