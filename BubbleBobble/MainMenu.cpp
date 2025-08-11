@@ -4,7 +4,6 @@
 #include "InputManager.h"
 #include "GameObject.h"
 #include "RenderComponent.h"
-#include "AudioComponent.h"
 #include "ResourceManager.h"
 #include "TextComponent.h"
 #include "FPSComponent.h"

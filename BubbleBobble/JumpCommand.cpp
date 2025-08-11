@@ -5,7 +5,7 @@
 
 void JumpCommand::Execute()
 {
-	Locator::GetAudio()->PlaySound("../Data/Player/Jump.wav");
+	Locator::GetAudio()->PlaySound("../Data/Player/Jump.wav", 100, 0);
 
 	if (m_pGameObject)
 	{

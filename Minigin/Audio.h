@@ -12,5 +12,7 @@ public:
    Audio& operator=(const Audio&) = delete;
    Audio& operator=(Audio&&) noexcept = delete;
 
-   virtual void PlaySound(const std::string& file) = 0;
+   virtual void PlaySound(const std::string& file, int volume, int loops) = 0;
+   virtual void PlayMusic(const std::string& file, int volume, int loops) = 0;
+   virtual void PauseMusic(bool isPaused) = 0;
 };
