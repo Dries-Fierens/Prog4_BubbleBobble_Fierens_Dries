@@ -2,7 +2,7 @@
 #include "SpriteComponent.h"
 #include "GameObject.h"
 
-dae::PlayerComponent::PlayerComponent(int health, float speed, GameObject* pOwner) : BaseComponent(pOwner), m_health(health), m_speed(speed), m_isGreen(true), m_playerState(PlayerState::Moving), m_lastPosition(glm::vec2(0,0))
+dae::PlayerComponent::PlayerComponent(int health, float speed, bool isGreen, GameObject* pOwner) : BaseComponent(pOwner), m_health(health), m_speed(speed), m_isGreen(isGreen), m_playerState(PlayerState::Moving), m_lastPosition(glm::vec2(0,0))
 {
 }
 
@@ -24,11 +24,6 @@ void dae::PlayerComponent::Update()
 
 void dae::PlayerComponent::Render() const
 {
-}
-
-void dae::PlayerComponent::SetColor(bool isGreen)
-{
-	m_isGreen = isGreen;
 }
 
 void dae::PlayerComponent::Rotate()

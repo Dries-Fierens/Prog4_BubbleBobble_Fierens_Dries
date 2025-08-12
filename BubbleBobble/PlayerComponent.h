@@ -13,7 +13,7 @@ namespace dae {
 			Dead
 		};
 
-		PlayerComponent(int health, float speed, GameObject* pOwner);
+		PlayerComponent(int health, float speed, bool isGreen, GameObject* pOwner);
 		virtual ~PlayerComponent() = default;
 		PlayerComponent(const PlayerComponent& other) = delete;
 		PlayerComponent(PlayerComponent&& other) = delete;
@@ -23,7 +23,6 @@ namespace dae {
 		void Update() override;
 		void Render() const override;
 
-		void SetColor(bool isGreen);
 		bool GetColor() const { return m_isGreen; }
 		PlayerState GetPlayerState() const { return m_playerState; }
 		void SetPlayerState(PlayerState state) { m_playerState = state; }

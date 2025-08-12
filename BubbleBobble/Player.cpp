@@ -31,7 +31,7 @@ std::shared_ptr<dae::GameObject> Player::Create(float x, float y, bool isGreen)
 	collider->SetSize(sprite.get()->GetSize());
 	auto physics = std::make_shared<dae::PhysicsComponent>(pPlayer.get());
 	physics->SetPhysics(true, true, false);
-	auto playerComponent = std::make_shared<dae::PlayerComponent>(3, 100.f, pPlayer.get());
+	auto playerComponent = std::make_shared<dae::PlayerComponent>(3, 100.f, isGreen, pPlayer.get());
 
 	pPlayer->AddComponent(sprite);
 	pPlayer->AddComponent(collider);
