@@ -29,6 +29,7 @@ namespace dae {
 		glm::vec2 GetSize() const { return glm::vec2(m_width, m_height); };
 		bool IsAnimatingOnce() const { return m_isAnimatingOnce; };
 		void SetOffset(const glm::vec2& offset) { m_offset = offset; };
+		void IsFlipped(bool isFlipped) { m_isFlipped = isFlipped; };
 
 	private:
 		std::shared_ptr<Texture2D> m_texture;
@@ -46,6 +47,7 @@ namespace dae {
 		float m_currentTime{};
 		float m_animationTime{};
 
+		bool m_isFlipped{ false };
 		bool m_isAnimatingOnce{ false };
 		float m_animationTimeOnce{};
 		int m_startIndexOnce{};

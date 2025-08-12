@@ -50,7 +50,14 @@ void dae::SpriteComponent::Render() const
 {
 	if (m_texture)
 	{
-		Renderer::GetInstance().RenderTexture(*m_texture, m_position.x + m_offset.x, m_position.y + m_offset.y, m_width, m_height, &m_rect);
+		if (m_isFlipped)
+		{
+			Renderer::GetInstance().RenderTexture(*m_texture, m_position.x + m_offset.x, m_position.y + m_offset.y, m_width, m_height, &m_rect, SDL_FLIP_HORIZONTAL);
+		}
+		else 
+		{
+			Renderer::GetInstance().RenderTexture(*m_texture, m_position.x + m_offset.x, m_position.y + m_offset.y, m_width, m_height, &m_rect);
+		}
 	}
 }
 

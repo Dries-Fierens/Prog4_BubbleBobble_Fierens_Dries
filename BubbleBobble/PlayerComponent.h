@@ -1,8 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
-#include <string>
-#include <memory>
-#include "InputManager.h"
+#include <glm.hpp>
 
 namespace dae {
 	class PlayerComponent final : public BaseComponent
@@ -34,7 +32,9 @@ namespace dae {
 		float m_speed;
 		int m_health;
 		bool m_isGreen;
-		PlayerState m_playerState{ PlayerState::Moving };
+		PlayerState m_playerState;
+		glm::vec2 m_lastPosition;
 
+		void Rotate();
 	};
 }
