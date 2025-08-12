@@ -106,6 +106,20 @@ public:
 		}
 	}
 
+	void MuteSound(bool isMuted)
+	{
+		if (isMuted)
+		{
+			Mix_Volume(-1, 0);
+			Mix_VolumeMusic(0);
+		}
+		else
+		{
+			Mix_Volume(-1, MIX_MAX_VOLUME);
+			Mix_VolumeMusic(MIX_MAX_VOLUME);
+		}
+	}
+
 private:
 	struct SoundEvent
 	{
@@ -158,4 +172,9 @@ void ConsoleAudio::PlayMusic(const std::string& file, int volume, int loops)
 void ConsoleAudio::PauseMusic(bool isPaused)
 {
 	m_pImpl->PauseMusic(isPaused);
+}
+
+void ConsoleAudio::MuteSound(bool isMuted)
+{
+	m_pImpl->MuteSound(isMuted);
 }

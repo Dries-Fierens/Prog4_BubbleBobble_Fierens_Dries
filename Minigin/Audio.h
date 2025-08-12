@@ -15,4 +15,5 @@ public:
    virtual void PlaySound(const std::string& file, int volume, int loops) = 0;
    virtual void PlayMusic(const std::string& file, int volume, int loops) = 0;
    virtual void PauseMusic(bool isPaused) = 0;
+   virtual void MuteSound(bool isMuted) = 0;
 };

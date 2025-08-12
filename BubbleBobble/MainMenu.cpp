@@ -9,9 +9,13 @@
 #include "FPSComponent.h"
 #include "StartSingleplayerCommand.h"
 #include "StartCoopCommand.h"
+#include "MuteCommand.h"
+#include "Locator.h"
 
 void MainMenu::Create()
 {
+	Locator::GetAudio()->PauseMusic(true);
+
 	dae::Scene* currentScene = dae::SceneManager::GetInstance().GetCurrentScene();
 
 	if (currentScene)
@@ -28,6 +32,7 @@ void MainMenu::Create()
 	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartSingleplayerCommand>(), '1', dae::InputManager::InputType::OnDown);
 	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartCoopCommand>(), '2', dae::InputManager::InputType::OnDown);
 	//dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<StartVersusCommand>(), '3', dae::InputManager::InputType::OnDown);
+	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MuteCommand>(), SDLK_F2, dae::InputManager::InputType::OnDown);
 
    
 	auto go = std::make_shared<dae::GameObject>();
