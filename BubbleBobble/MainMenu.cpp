@@ -11,6 +11,8 @@
 #include "StartCoopCommand.h"
 #include "MuteCommand.h"
 #include "Locator.h"
+#include <glm.hpp>
+#include "Renderer.h"
 
 void MainMenu::Create()
 {
@@ -35,6 +37,8 @@ void MainMenu::Create()
 	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<MuteCommand>(), SDLK_F2, dae::InputManager::InputType::OnDown);
 
    
+	glm::vec2 windowSize = dae::Renderer::GetInstance().GetWindowSize();
+
 	auto go = std::make_shared<dae::GameObject>();
     auto logoDAE = std::make_shared<dae::RenderComponent>("logo.tga", go.get());
     go->AddComponent(logoDAE);
@@ -44,7 +48,7 @@ void MainMenu::Create()
 	go = std::make_shared<dae::GameObject>();
 	auto logoBubbleBobble = std::make_shared<dae::RenderComponent>("../Data/HUD/logo.png", go.get());
 	go->AddComponent(logoBubbleBobble);
-	go->SetLocalPosition(800.f / 2 - logoBubbleBobble.get()->GetSize().x / 2, 50);
+	go->SetLocalPosition(windowSize.x / 2 - logoBubbleBobble.get()->GetSize().x / 2, 50);
 	currentScene->Add(go);
 
 	auto fontPang = dae::ResourceManager::GetInstance().LoadFont("../Data/Fonts/Pang.ttf", 20);
@@ -59,21 +63,21 @@ void MainMenu::Create()
 	auto singleplayer = std::make_shared<dae::GameObject>();
 	auto singleplayerText = std::make_shared<dae::TextComponent>("PRESS 1 FOR SINGLEPLAYER", fontNES, singleplayer.get());
 	singleplayerText->Update(); // Texture isn't initialized until Update is called
-	singleplayer->SetLocalPosition(800.f / 2 - singleplayerText.get()->GetSize().x / 2, 500);
+	singleplayer->SetLocalPosition(windowSize.x / 2 - singleplayerText.get()->GetSize().x / 2, 500);
 	singleplayer->AddComponent(singleplayerText);
 	currentScene->Add(singleplayer);
 
 	auto coop = std::make_shared<dae::GameObject>();
 	auto coopText = std::make_shared<dae::TextComponent>("PRESS 2 FOR CO-OP", fontNES, coop.get());
 	coopText->Update(); // Texture isn't initialized until Update is called
-	coop->SetLocalPosition(800.f / 2 - coopText.get()->GetSize().x / 2, 570);
+	coop->SetLocalPosition(windowSize.x / 2 - coopText.get()->GetSize().x / 2, 570);
 	coop->AddComponent(coopText);
 	currentScene->Add(coop);
 
 	auto versus = std::make_shared<dae::GameObject>();
 	auto versusText = std::make_shared<dae::TextComponent>("PRESS 3 FOR VERSUS", fontNES, versus.get());
 	versusText->Update(); // Texture isn't initialized until Update is called
-	versus->SetLocalPosition(800.f / 2 - versusText.get()->GetSize().x / 2, 640);
+	versus->SetLocalPosition(windowSize.x / 2 - versusText.get()->GetSize().x / 2, 640);
 	versus->AddComponent(versusText);
 	currentScene->Add(versus);
 }

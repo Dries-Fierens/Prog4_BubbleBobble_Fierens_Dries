@@ -101,3 +101,14 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y, fl
 }
 
 SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }
+
+glm::vec2 dae::Renderer::GetWindowSize() const
+{
+	int width = 0;
+	int height = 0;
+	if (m_window)
+	{
+		SDL_GetWindowSize(m_window, &width, &height);
+	}
+	return glm::vec2(width, height);
+}
