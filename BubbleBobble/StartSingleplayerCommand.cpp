@@ -16,9 +16,8 @@ void StartSingleplayerCommand::Execute()
 
 	currentScene->RemoveAll();
 	currentScene->SetName("Level 1");
-	for (auto& gameObject : Level::Create(1)) currentScene->Add(gameObject);
-
 	GameManager::GetInstance().SetGameState(GameManager::GameState::Singleplayer);
+	for (auto& gameObject : Level::Create(1)) currentScene->Add(gameObject);
 
 	Locator::GetAudio()->PlayMusic("../Data/MainTheme.mp3", 40, -1);
 	Locator::GetAudio()->PauseMusic(false);

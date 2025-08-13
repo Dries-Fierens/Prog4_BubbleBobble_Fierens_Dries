@@ -18,6 +18,7 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 	std::string filePath = "../Data/Levels/" + std::to_string(levelNumber) + "/Data.txt";
     std::ifstream file(filePath);
 	std::vector<std::shared_ptr<dae::GameObject>> level;
+    int playerCount = 0;
 
     if (file.is_open()) {
         while (std::getline(file, line)) {
@@ -45,6 +46,10 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 				level.push_back(tile);
             }
             else if (type == "Player") {
+
+                if (GameManager::GetInstance().GetGameState() == GameManager::GameState::Singleplayer && playerCount >= 1)
+                    continue;
+
                 std::replace(args.begin(), args.end(), ',', ' ');
                 std::istringstream iss(args);
                 float x, y;
@@ -53,6 +58,7 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 
                 auto player = Player::Create(x, y, isGreen);
                 level.push_back(player);
+                ++playerCount;
             }
             else if (type == "ZenChan") {
                 //size_t commaPos = args.find(',');

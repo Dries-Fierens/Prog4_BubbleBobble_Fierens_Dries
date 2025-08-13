@@ -26,6 +26,7 @@ namespace dae {
 		bool GetColor() const { return m_isGreen; }
 		PlayerState GetPlayerState() const { return m_playerState; }
 		void SetPlayerState(PlayerState state) { m_playerState = state; }
+		const glm::vec2& GetStartPosition() const { return m_startPosition; }
 
 	private:
 		float m_speed;
@@ -33,6 +34,7 @@ namespace dae {
 		bool m_isGreen;
 		PlayerState m_playerState;
 		glm::vec2 m_lastPosition;
+		glm::vec2 m_startPosition;
 
 		void Rotate();
 	};

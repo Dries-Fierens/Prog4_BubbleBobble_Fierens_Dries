@@ -8,7 +8,7 @@
 
 void GameManager::OnEvent(const Event& /*e*/)
 {
-	// Player died => Skip level
+	// Player died => menu
 }
 
 void GameManager::Initialize()
