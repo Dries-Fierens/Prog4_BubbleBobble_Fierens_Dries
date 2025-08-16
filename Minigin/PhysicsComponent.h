@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
+#include <glm.hpp>
 
 namespace dae 
 {
@@ -26,10 +27,12 @@ namespace dae
 
 		CollisionState GetCollisionState() const { return m_collisionState; }
 		void SetPhysics(bool hasGravity, bool hasCollision, bool isStatic);
-		void Jump(float speed);
+		void Jump(float speed) { m_verticalSpeed = speed; }
+		void SetHorizontalSpeed(float speed) { m_horizontalSpeed = speed; };
 
 	private:
 		float m_verticalSpeed{};
+		float m_horizontalSpeed{};
 		const float m_gravityAcceleration{ 450 };
 		const float m_fallSpeed{ 900 };
 		CollisionState m_collisionState{};
@@ -38,8 +41,8 @@ namespace dae
 		bool m_hasCollision{ true };
 		bool m_isStatic{ true };
 
-		void DoGravity();
-		void DoCollision();
+		void DoGravity(glm::vec2& velocity);
+		void MoveAndCollide(const glm::vec2& velocity);
 	};
 }
 

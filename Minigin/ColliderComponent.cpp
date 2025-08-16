@@ -34,17 +34,15 @@ bool dae::ColliderComponent::IsOverlapping(ColliderComponent* other)
 {
     UpdatePosition();
 
-    const auto otherPosition = other->GetOwner()->GetPosition();
-	const auto otherSize = other->GetSize();
+	const glm::vec2& aPos = this->GetPosition();
+	const glm::vec2& aSize = this->GetSize();
+	const glm::vec2& bPos = other->GetPosition();
+	const glm::vec2& bSize = other->GetSize();
 
-    if (m_position.x > otherPosition.x + otherSize.x ||
-		m_position.x + m_size.x < otherPosition.x ||
-		m_position.y > otherPosition.y + otherSize.y ||
-		m_position.y + m_size.y < otherPosition.y)
-    {
-        return false;
-    }
-    return true;
+	return (aPos.x < bPos.x + bSize.x &&
+		aPos.x + aSize.x > bPos.x &&
+		aPos.y < bPos.y + bSize.y &&
+		aPos.y + aSize.y > bPos.y);
 }
 
 void dae::ColliderComponent::UpdatePosition()

@@ -20,18 +20,18 @@ std::shared_ptr<dae::GameObject> Player::Create(float x, float y, bool isGreen)
 	if (isGreen)
 	{
 		sprite = std::make_shared<dae::SpriteComponent>("../Data/Player/Bubby/Idle_Anim.png", pPlayer.get());
-		sprite->Animate(1, 2, 8, 0, 1);
+		sprite->Animate(1, 2, 2, 0, 1);
 	}
 	else {
 		sprite = std::make_shared<dae::SpriteComponent>("../Data/Player/Bobby/Idle_Anim.png", pPlayer.get());
-		sprite->Animate(1, 2, 8, 0, 1);
+		sprite->Animate(1, 2, 2, 0, 1);
 	}
 
 	auto collider = std::make_shared<dae::ColliderComponent>(pPlayer.get());
 	collider->SetSize(sprite.get()->GetSize());
 	auto physics = std::make_shared<dae::PhysicsComponent>(pPlayer.get());
 	physics->SetPhysics(true, true, false);
-	auto playerComponent = std::make_shared<dae::PlayerComponent>(3, 100.f, isGreen, pPlayer.get());
+	auto playerComponent = std::make_shared<dae::PlayerComponent>(3, isGreen, pPlayer.get());
 
 	pPlayer->AddComponent(sprite);
 	pPlayer->AddComponent(collider);

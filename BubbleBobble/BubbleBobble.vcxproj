@@ -155,12 +155,14 @@
   <ItemGroup>
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="BubbleBobble.h" />
+    <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Maita.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="MuteCommand.h" />
     <ClInclude Include="Player.h" />
@@ -173,15 +175,18 @@
     <ClInclude Include="StartSingleplayerCommand.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="ZenChan.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Maita.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="MuteCommand.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -192,6 +197,7 @@
     <ClCompile Include="StartCoopCommand.cpp" />
     <ClCompile Include="StartSingleplayerCommand.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="ZenChan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BubbleBobble.rc" />

@@ -13,7 +13,7 @@ namespace dae {
 			Dead
 		};
 
-		PlayerComponent(int health, float speed, bool isGreen, GameObject* pOwner);
+		PlayerComponent(int health, bool isGreen, GameObject* pOwner);
 		virtual ~PlayerComponent() = default;
 		PlayerComponent(const PlayerComponent& other) = delete;
 		PlayerComponent(PlayerComponent&& other) = delete;
@@ -29,7 +29,6 @@ namespace dae {
 		const glm::vec2& GetStartPosition() const { return m_startPosition; }
 
 	private:
-		float m_speed;
 		int m_health;
 		bool m_isGreen;
 		PlayerState m_playerState;

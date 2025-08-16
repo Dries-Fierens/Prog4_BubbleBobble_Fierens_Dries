@@ -216,6 +216,6 @@ Player=676, 620, false
 
 //ZenChans
 ZenChan=360, 150
-ZenChan=408, 150
+Maita=408, 150
 ZenChan=312, 250
 ZenChan=456, 250

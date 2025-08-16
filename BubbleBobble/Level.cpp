@@ -11,6 +11,10 @@
 #include "InputManager.h"
 #include "SkipLevelCommand.h"
 #include "GameManager.h"
+#include "ResourceManager.h"
+#include "Renderer.h"
+#include "ZenChan.h"
+#include "Maita.h"
 
 std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 {
@@ -19,6 +23,9 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
     std::ifstream file(filePath);
 	std::vector<std::shared_ptr<dae::GameObject>> level;
     int playerCount = 0;
+
+    auto fontPang = dae::ResourceManager::GetInstance().LoadFont("../Data/Fonts/Pang.ttf", 20);
+    glm::vec2 windowSize = dae::Renderer::GetInstance().GetWindowSize();
 
     if (file.is_open()) {
         while (std::getline(file, line)) {
@@ -58,17 +65,46 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 
                 auto player = Player::Create(x, y, isGreen);
                 level.push_back(player);
+
+                auto lives = std::make_shared<dae::GameObject>();
+                auto livesText = std::make_shared<dae::TextComponent>("LIVES: ", fontPang, lives.get());
+                livesText->Update();
+
+                lives->AddComponent(livesText);
+
+                float offsetY = 40.0f;
+                if (playerCount == 0) 
+                {
+                    lives->SetLocalPosition(10.0f, windowSize.y - offsetY);
+                }
+                else 
+                {
+                    float livesWidth = livesText->GetSize().x;
+                    lives->SetLocalPosition(windowSize.x - livesWidth - 10.0f, windowSize.y - offsetY);
+                }
+
+                level.push_back(lives);
                 ++playerCount;
             }
             else if (type == "ZenChan") {
-                //size_t commaPos = args.find(',');
-                //if (commaPos == std::string::npos) continue;
+                size_t commaPos = args.find(',');
+                if (commaPos == std::string::npos) continue;
 
-                //float x = std::stof(args.substr(0, commaPos));
-                //float y = std::stof(args.substr(commaPos + 1));
+                float x = std::stof(args.substr(0, commaPos));
+                float y = std::stof(args.substr(commaPos + 1));
 
-                //auto zenChan = ZenChan::Create(x, y);
-                //std::cout << "ZenChan: (" << x << ", " << y << ")\n";
+                auto zenChan = ZenChan::Create(x, y);
+				level.push_back(zenChan);
+            }
+            else if (type == "Maita") {
+                size_t commaPos = args.find(',');
+                if (commaPos == std::string::npos) continue;
+
+                float x = std::stof(args.substr(0, commaPos));
+                float y = std::stof(args.substr(commaPos + 1));
+
+                auto maita = Maita::Create(x, y);
+				level.push_back(maita);
             }
         }
 
