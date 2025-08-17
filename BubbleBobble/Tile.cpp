@@ -5,23 +5,55 @@
 
 std::shared_ptr<dae::GameObject> Tile::Create(float x, float y, int level, bool isBigTile)
 {
-	auto pSurface = std::make_shared<dae::GameObject>();
-	pSurface->SetLocalPosition(x, y);
+    auto pSurface = std::make_shared<dae::GameObject>();
+    pSurface->SetLocalPosition(x, y);
 
-	std::shared_ptr<dae::RenderComponent> render;
-	if (isBigTile)
-		render = std::make_shared<dae::RenderComponent>("../Data/Levels/" + std::to_string(level) + "/big.png", pSurface.get());
-	else
-		render = std::make_shared<dae::RenderComponent>("../Data/Levels/" + std::to_string(level) + "/small.png", pSurface.get());
+    std::shared_ptr<dae::RenderComponent> render;
+    if (isBigTile)
+        render = std::make_shared<dae::RenderComponent>(
+            "../Data/Levels/" + std::to_string(level) + "/big.png", pSurface.get());
+    else
+        render = std::make_shared<dae::RenderComponent>(
+            "../Data/Levels/" + std::to_string(level) + "/small.png", pSurface.get());
 
-	auto collider = std::make_shared<dae::ColliderComponent>(pSurface.get());
-	collider->SetSize(render.get()->GetSize());
-	auto physics = std::make_shared<dae::PhysicsComponent>(pSurface.get());
-	physics->SetPhysics(false, true, true);
+    auto collider = std::make_shared<dae::ColliderComponent>(pSurface.get());
+    collider->SetSize(render->GetSize());
 
-	pSurface->AddComponent(render);
-	pSurface->AddComponent(collider);
-	pSurface->AddComponent(physics);
+    auto physics = std::make_shared<dae::PhysicsComponent>(pSurface.get());
+    physics->SetPhysics(false, true, true);
 
-	return pSurface;
+    pSurface->AddComponent(render);
+    pSurface->AddComponent(collider);
+    pSurface->AddComponent(physics);
+
+    return pSurface;
+}
+
+std::shared_ptr<dae::GameObject> Tile::Create(float x, float y, int level, bool isBigTile, float width, float height)
+{
+    auto pSurface = std::make_shared<dae::GameObject>();
+    pSurface->SetLocalPosition(x, y);
+
+    std::shared_ptr<dae::RenderComponent> render;
+    if (isBigTile)
+        render = std::make_shared<dae::RenderComponent>(
+            "../Data/Levels/" + std::to_string(level) + "/big.png", pSurface.get());
+    else
+        render = std::make_shared<dae::RenderComponent>(
+            "../Data/Levels/" + std::to_string(level) + "/small.png", pSurface.get());
+
+	float finalWidth = width > 0 ? width : render->GetSize().x;
+	float finalHeight = height > 0 ? height : render->GetSize().y;
+
+    auto collider = std::make_shared<dae::ColliderComponent>(pSurface.get());
+    collider->SetSize({ finalWidth, finalHeight });
+
+    auto physics = std::make_shared<dae::PhysicsComponent>(pSurface.get());
+    physics->SetPhysics(false, true, true);
+
+    pSurface->AddComponent(render);
+    pSurface->AddComponent(collider);
+    pSurface->AddComponent(physics);
+
+    return pSurface;
 }

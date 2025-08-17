@@ -41,18 +41,20 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
             std::string type = line.substr(0, pos);
             std::string args = line.substr(pos + 1);
 
-            if (type == "Tile" || type == "FakeTile" || type == "BigTile" || type == "BigTileInvis") {
+            if (type == "Tile" || type == "TileHard" || type == "FakeTile" || type == "BigTile" || type == "BigTileInvis")
+            {
                 size_t commaPos = args.find(',');
                 if (commaPos == std::string::npos) continue;
 
                 float x = std::stof(args.substr(0, commaPos));
                 float y = std::stof(args.substr(commaPos + 1));
 
-                bool isBig = (type == "BigTile" || type == "BigTileInvis");
-                auto tile = Tile::Create(x, y, levelNumber, isBig);
-				level.push_back(tile);
+				bool isBigTile = (type == "BigTile" || type == "BigTileInvis");
+				auto tile = Tile::Create(x, y, levelNumber, isBigTile);
+                level.push_back(tile);
             }
-            else if (type == "Player") {
+            else if (type == "Player") 
+            {
 
                 if (GameManager::GetInstance().GetGameState() == GameManager::GameState::Singleplayer && playerCount >= 1)
                     continue;
@@ -86,7 +88,8 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
                 level.push_back(lives);
                 ++playerCount;
             }
-            else if (type == "ZenChan") {
+            else if (type == "ZenChan") 
+            {
                 size_t commaPos = args.find(',');
                 if (commaPos == std::string::npos) continue;
 
@@ -96,7 +99,8 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
                 auto zenChan = ZenChan::Create(x, y);
 				level.push_back(zenChan);
             }
-            else if (type == "Maita") {
+            else if (type == "Maita") 
+            {
                 size_t commaPos = args.find(',');
                 if (commaPos == std::string::npos) continue;
 

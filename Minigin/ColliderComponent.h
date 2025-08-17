@@ -28,7 +28,7 @@ namespace dae
 		glm::vec2 m_position{};
 		glm::vec2 m_size{};
 		glm::vec4 m_color{ 1.f, 1.f, 1.f, 1.f };
-		bool m_showCollisions{ false };
+		bool m_showCollisions{ true };
 	};
 }
 
