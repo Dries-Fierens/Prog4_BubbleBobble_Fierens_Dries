@@ -18,6 +18,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "PlayerComponent.h"
+#include "ShowCollisionsCommand.h"
+
 
 std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 {
@@ -141,6 +143,7 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
     }
 
     dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<SkipLevelCommand>(), SDLK_F1, dae::InputManager::InputType::OnDown);
+    dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<ShowCollisionsCommand>(), SDLK_F3, dae::InputManager::InputType::OnDown);
 
     return level;
 }

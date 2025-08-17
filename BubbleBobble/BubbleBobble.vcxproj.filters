@@ -87,6 +87,9 @@
     <ClInclude Include="DeathCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShowCollisionsCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BubbleBobble.cpp">
@@ -150,6 +153,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DeathCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowCollisionsCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -74,7 +74,7 @@ std::shared_ptr<dae::GameObject> Player::Create(float x, float y, bool isGreen)
 		}
 	}
 
-	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<DeathCommand>(pPlayer.get()), SDLK_F3, dae::InputManager::InputType::OnPressed);
+	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<DeathCommand>(pPlayer.get()), SDLK_F4, dae::InputManager::InputType::OnPressed);
 
 	return pPlayer;
 }

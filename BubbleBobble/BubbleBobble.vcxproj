@@ -171,6 +171,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="ShootCommand.h" />
+    <ClInclude Include="ShowCollisionsCommand.h" />
     <ClInclude Include="SkipLevelCommand.h" />
     <ClInclude Include="StartCoopCommand.h" />
     <ClInclude Include="StartSingleplayerCommand.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="RotatorComponent.cpp" />
     <ClCompile Include="ShootCommand.cpp" />
+    <ClCompile Include="ShowCollisionsCommand.cpp" />
     <ClCompile Include="SkipLevelCommand.cpp" />
     <ClCompile Include="StartCoopCommand.cpp" />
     <ClCompile Include="StartSingleplayerCommand.cpp" />
