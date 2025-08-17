@@ -22,11 +22,14 @@ namespace dae
 
 		void Update() override;
 		void Render() const override;
+		void Rotate();
+
 	private:
 		float m_timeSinceChange{};
 		int m_direction{}; // 0 = idle, -1 = left, 1 = right
 		float m_changeInterval{};
 		EnemyState m_enemyState{ EnemyState::Moving };
+		glm::vec2 m_lastPosition{ 0.f, 0.f };
 	};
 }
 

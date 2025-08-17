@@ -3,6 +3,7 @@
 #include "PhysicsComponent.h"
 #include <cstdlib>
 #include <ctime>
+#include "SpriteComponent.h"
 
 namespace dae
 {
@@ -10,7 +11,9 @@ namespace dae
 		: BaseComponent(pOwner),
 		m_timeSinceChange(0.f),
 		m_direction(0),
-		m_changeInterval(1.f + static_cast<float>(rand()) / RAND_MAX * 2.f) // 1–3 sec
+		m_changeInterval(1.f + static_cast<float>(rand()) / RAND_MAX * 2.f), // 1–3 sec
+        m_enemyState(EnemyState::Moving),
+		m_lastPosition({ 0.f, 0.f })
     {
         srand(static_cast<unsigned>(time(nullptr)));
     }
@@ -26,6 +29,8 @@ namespace dae
         const auto collision = physics->GetCollisionState();
         if (m_enemyState == EnemyState::Moving) 
         {
+            Rotate();
+
             if (collision.Left)
             {
                 m_direction = 1;
@@ -60,5 +65,23 @@ namespace dae
 
     void EnemyComponent::Render() const
     {
+    }
+
+    void EnemyComponent::Rotate()
+    {
+        auto sprite = GetOwner()->GetComponent<dae::SpriteComponent>();
+        if (sprite)
+        {
+            glm::vec2 position = GetOwner()->GetPosition();
+            if (m_lastPosition.x < position.x)
+            {
+                sprite->IsFlipped(false);
+            }
+            else if (m_lastPosition.x > position.x)
+            {
+                sprite->IsFlipped(true);
+            }
+            m_lastPosition = position;
+        }
     }
 }

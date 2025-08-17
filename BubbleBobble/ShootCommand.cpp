@@ -20,11 +20,13 @@ void ShootCommand::Execute()
 
 			if (player.get()->GetColor()) {
 				sprite->SetTexture("../Data/Player/Bubby/Shoot_Anim.png");
-				sprite->AnimateOnce(1, 4, 8, 0, 3);
+				sprite->Animate(1, 4, 8, 0, 3);
+				//sprite->AnimateOnce(1, 4, 8, 0, 3);
 			}
 			else {
 				sprite->SetTexture("../Data/Player/Bobby/Shoot_Anim.png");
-				sprite->AnimateOnce(1, 4, 8, 0, 3);
+				sprite->Animate(1, 4, 8, 0, 3);
+				//sprite->AnimateOnce(1, 4, 8, 0, 3);
 			}
 		}
 	}

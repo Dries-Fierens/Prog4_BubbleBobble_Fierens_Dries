@@ -23,7 +23,7 @@ namespace dae {
 		void Update() override;
 		void Render() const override;
 		void Animate(int rows, int columns, int frames, int startIndex, int endIndex);
-		void AnimateOnce(int rows, int columns, int frames, int startIndex, int endIndex);
+		//void AnimateOnce(int rows, int columns, int frames, int startIndex, int endIndex);
 		void SetTexture(const std::string& filename) { m_texture = ResourceManager::GetInstance().LoadTexture(filename); };
 		void SetTexture(std::shared_ptr<Texture2D> texture) { m_texture = texture; };
 		glm::vec2 GetSize() const { return glm::vec2(m_width, m_height); };
