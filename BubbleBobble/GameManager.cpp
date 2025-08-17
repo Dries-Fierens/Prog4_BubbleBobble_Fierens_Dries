@@ -5,10 +5,37 @@
 #include "GameObject.h"
 #include "PlayerComponent.h"
 #include "Level.h"
+#include "Locator.h"
+#include "Audio.h"
+#include "EnemyComponent.h"
 
-void GameManager::OnEvent(const Event& /*e*/)
+void GameManager::OnEvent(const Event& e)
 {
-	// Player died => menu
+	auto currentScene = dae::SceneManager::GetInstance().GetCurrentScene();
+
+	if (e.name == "NextLevel")
+	{
+		bool goNextLevel = true;
+		for (auto go : currentScene->GetGameObjects())
+		{
+			if (go->HasComponent<dae::EnemyComponent>())
+			{
+				goNextLevel = false;
+				break;
+			}
+
+			// If there is still food on the ground
+		}
+
+		if (goNextLevel) SkipLevel();
+	}
+
+	if (e.name == "PlayerDead")
+	{
+		Locator::GetAudio()->PauseMusic(true);
+		MainMenu::Create();
+		m_gameState = GameState::Menu;
+	}
 }
 
 void GameManager::Initialize()

@@ -1,6 +1,7 @@
 #include "PlayerComponent.h"
 #include "SpriteComponent.h"
 #include "GameObject.h"
+#include "EventQueue.h"
 
 dae::PlayerComponent::PlayerComponent(int health, bool isGreen, GameObject* pOwner) : BaseComponent(pOwner), m_health(health), m_isGreen(isGreen), m_playerState(PlayerState::Moving), m_lastPosition(glm::vec2(0, 0)), m_spawnPosition(glm::vec2(0, 0))
 {
@@ -16,6 +17,7 @@ void dae::PlayerComponent::Update()
 	case dae::PlayerComponent::PlayerState::Hit:
 		break;
 	case dae::PlayerComponent::PlayerState::Dead:
+		EventQueue::GetInstance().SendEvent({ "PlayerDead" });
 		break;
 	default:
 		break;

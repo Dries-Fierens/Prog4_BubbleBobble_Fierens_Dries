@@ -1,11 +1,11 @@
 #include "EventQueue.h"
 
-int EventListener::m_IdCounter{ 0 };
+int EventListener::m_idCounter{ 0 };
 
 EventListener::EventListener()
 {
-	m_Id = m_IdCounter;
-	++m_IdCounter;
+	m_id = m_idCounter;
+	++m_idCounter;
 }
 
 void dae::EventQueue::SendEvent(const Event& event)

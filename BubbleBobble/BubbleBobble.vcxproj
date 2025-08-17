@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="BubbleBobble.h" />
+    <ClInclude Include="DeathCommand.h" />
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="framework.h" />
@@ -180,6 +181,7 @@
   <ItemGroup>
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
+    <ClCompile Include="DeathCommand.cpp" />
     <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameManager.cpp" />

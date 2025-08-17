@@ -10,6 +10,7 @@
 #include "JumpCommand.h"
 #include "ShootCommand.h"
 #include "GameManager.h"
+#include "DeathCommand.h"
 
 std::shared_ptr<dae::GameObject> Player::Create(float x, float y, bool isGreen)
 {
@@ -72,6 +73,8 @@ std::shared_ptr<dae::GameObject> Player::Create(float x, float y, bool isGreen)
 			dae::InputManager::GetInstance().AddControllerCommand(std::make_unique<ShootCommand>(pPlayer.get()), dae::Controller::ButtonState::B, 0, dae::InputManager::InputType::OnDown);
 		}
 	}
+
+	dae::InputManager::GetInstance().AddKeyboardCommand(std::make_unique<DeathCommand>(pPlayer.get()), SDLK_F3, dae::InputManager::InputType::OnPressed);
 
 	return pPlayer;
 }

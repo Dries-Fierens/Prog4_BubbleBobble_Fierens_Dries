@@ -84,6 +84,9 @@
     <ClInclude Include="ZenChan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeathCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BubbleBobble.cpp">
@@ -144,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ZenChan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeathCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

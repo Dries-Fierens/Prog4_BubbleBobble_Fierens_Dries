@@ -4,6 +4,12 @@
 
 namespace dae 
 {
+	enum class EnemyState
+	{
+		Moving,
+		Dead
+	};
+
 	class EnemyComponent final : public BaseComponent
 	{
 	public:
@@ -20,6 +26,7 @@ namespace dae
 		float m_timeSinceChange{};
 		int m_direction{}; // 0 = idle, -1 = left, 1 = right
 		float m_changeInterval{};
+		EnemyState m_enemyState{ EnemyState::Moving };
 	};
 }
 

@@ -24,32 +24,35 @@ namespace dae
         if (!physics) return;
 
         const auto collision = physics->GetCollisionState();
-        if (collision.Left)
+        if (m_enemyState == EnemyState::Moving) 
         {
-            m_direction = 1;
-            m_timeSinceChange = 0.f;
-        }
-        else if (collision.Right)
-        {
-            m_direction = -1;
-            m_timeSinceChange = 0.f;
-        }
-        else if (m_timeSinceChange > m_changeInterval)
-        {
-            m_timeSinceChange = 0.f;
-            m_changeInterval = 1.0f + static_cast<float>(rand()) / RAND_MAX * 2.0f;
-            m_direction = (rand() % 3) - 1;
-        }
-
-        const float speed = 50.0f;
-        physics->SetHorizontalSpeed(m_direction * speed);
-
-        // Random jump
-        if (rand() % 200 == 0) // .5% chance per frame
-        {
-            if (physics->GetCollisionState().Bottom)
+            if (collision.Left)
             {
-                physics->Jump(-200.0f);
+                m_direction = 1;
+                m_timeSinceChange = 0.f;
+            }
+            else if (collision.Right)
+            {
+                m_direction = -1;
+                m_timeSinceChange = 0.f;
+            }
+            else if (m_timeSinceChange > m_changeInterval)
+            {
+                m_timeSinceChange = 0.f;
+                m_changeInterval = 1.0f + static_cast<float>(rand()) / RAND_MAX * 2.0f;
+                m_direction = (rand() % 3) - 1;
+            }
+
+            const float speed = 50.0f;
+            physics->SetHorizontalSpeed(m_direction * speed);
+
+            // Random jump
+            if (rand() % 200 == 0) // .5% chance per frame
+            {
+                if (physics->GetCollisionState().Bottom)
+                {
+                    physics->Jump(-200.0f);
+                }
             }
         }
     }

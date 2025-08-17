@@ -20,11 +20,11 @@ public:
 
 	virtual void OnEvent(const Event& event) = 0;
 
-	int GetId() const { return m_Id; }
+	int GetId() const { return m_id; }
 
 private:
-	int m_Id{};
-	static int m_IdCounter;
+	int m_id{};
+	static int m_idCounter;
 };
 
 namespace dae
