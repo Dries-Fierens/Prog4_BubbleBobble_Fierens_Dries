@@ -2,7 +2,7 @@
 #include "SpriteComponent.h"
 #include "GameObject.h"
 
-dae::PlayerComponent::PlayerComponent(int health, bool isGreen, GameObject* pOwner) : BaseComponent(pOwner), m_health(health), m_isGreen(isGreen), m_playerState(PlayerState::Moving), m_lastPosition(glm::vec2(0, 0)), m_startPosition(pOwner->GetPosition())
+dae::PlayerComponent::PlayerComponent(int health, bool isGreen, GameObject* pOwner) : BaseComponent(pOwner), m_health(health), m_isGreen(isGreen), m_playerState(PlayerState::Moving), m_lastPosition(glm::vec2(0, 0)), m_spawnPosition(glm::vec2(0, 0))
 {
 }
 
@@ -24,6 +24,12 @@ void dae::PlayerComponent::Update()
 
 void dae::PlayerComponent::Render() const
 {
+}
+
+void dae::PlayerComponent::ResetPosition(const glm::vec2& pos)
+{
+	m_spawnPosition = pos;
+	GetOwner()->SetLocalPosition(pos.x, pos.y);
 }
 
 void dae::PlayerComponent::Rotate()

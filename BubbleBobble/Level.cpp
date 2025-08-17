@@ -15,6 +15,9 @@
 #include "Renderer.h"
 #include "ZenChan.h"
 #include "Maita.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "PlayerComponent.h"
 
 std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 {
@@ -26,6 +29,13 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 
     auto fontPang = dae::ResourceManager::GetInstance().LoadFont("../Data/Fonts/Pang.ttf", 20);
     glm::vec2 windowSize = dae::Renderer::GetInstance().GetWindowSize();
+
+    size_t existingPlayers = 0;
+    if (auto scene = dae::SceneManager::GetInstance().GetCurrentScene())
+    {
+        for (auto& go : scene->GetGameObjects())
+            if (go->HasComponent<dae::PlayerComponent>()) ++existingPlayers;
+    }
 
     if (file.is_open()) {
         while (std::getline(file, line)) {
@@ -53,9 +63,8 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
 				auto tile = Tile::Create(x, y, levelNumber, isBigTile);
                 level.push_back(tile);
             }
-            else if (type == "Player") 
+            else if (type == "Player")  
             {
-
                 if (GameManager::GetInstance().GetGameState() == GameManager::GameState::Singleplayer && playerCount >= 1)
                     continue;
 
@@ -64,29 +73,45 @@ std::vector<std::shared_ptr<dae::GameObject>> Level::Create(int levelNumber)
                 float x, y;
                 bool isGreen;
                 iss >> x >> y >> std::boolalpha >> isGreen;
-
-                auto player = Player::Create(x, y, isGreen);
-                level.push_back(player);
-
-                auto lives = std::make_shared<dae::GameObject>();
-                auto livesText = std::make_shared<dae::TextComponent>("LIVES: ", fontPang, lives.get());
-                livesText->Update();
-
-                lives->AddComponent(livesText);
-
-                float offsetY = 40.0f;
-                if (playerCount == 0) 
+                if (existingPlayers > 0)
                 {
-                    lives->SetLocalPosition(10.0f, windowSize.y - offsetY);
+                    auto scene = dae::SceneManager::GetInstance().GetCurrentScene();
+                    for (auto& go : scene->GetGameObjects())
+                    {
+                        if (auto pc = go->GetComponent<dae::PlayerComponent>())
+                        {
+                            if (pc->GetColor() == isGreen)
+                            {
+                                pc->ResetPosition({ x, y });
+                            }
+                        }
+                    }
                 }
-                else 
+                else
                 {
-                    float livesWidth = livesText->GetSize().x;
-                    lives->SetLocalPosition(windowSize.x - livesWidth - 10.0f, windowSize.y - offsetY);
-                }
+                    auto player = Player::Create(x, y, isGreen);
+                    level.push_back(player);
 
-                level.push_back(lives);
-                ++playerCount;
+                    auto lives = std::make_shared<dae::GameObject>();
+                    auto livesText = std::make_shared<dae::TextComponent>("LIVES: ", fontPang, lives.get());
+                    livesText->Update();
+
+                    lives->AddComponent(livesText);
+
+                    float offsetY = 40.0f;
+                    if (playerCount == 0)
+                    {
+                        lives->SetLocalPosition(10.0f, windowSize.y - offsetY);
+                    }
+                    else
+                    {
+                        float livesWidth = livesText->GetSize().x;
+                        lives->SetLocalPosition(windowSize.x - livesWidth - 10.0f, windowSize.y - offsetY);
+                    }
+
+                    level.push_back(lives);
+                    ++playerCount;
+                }
             }
             else if (type == "ZenChan") 
             {

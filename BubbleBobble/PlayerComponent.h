@@ -26,14 +26,14 @@ namespace dae {
 		bool GetColor() const { return m_isGreen; }
 		PlayerState GetPlayerState() const { return m_playerState; }
 		void SetPlayerState(PlayerState state) { m_playerState = state; }
-		const glm::vec2& GetStartPosition() const { return m_startPosition; }
+		void ResetPosition(const glm::vec2& pos);
 
 	private:
 		int m_health;
 		bool m_isGreen;
 		PlayerState m_playerState;
 		glm::vec2 m_lastPosition;
-		glm::vec2 m_startPosition;
+		glm::vec2 m_spawnPosition;
 
 		void Rotate();
 	};
